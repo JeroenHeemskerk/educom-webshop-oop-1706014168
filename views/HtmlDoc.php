@@ -8,16 +8,49 @@ class HtmlDoc {
 	
 	public function show() {
 		//call a bunch of private and protected methods
-		showHtmlStart();
-		showHeaderStart();
-		showHeaderContent();
-		showHeaderEnd();
-		showBodyStart();
-		showBodyContent();
-		showBodyEnd();
-		showHtmlEnd();
-		
+		$this->showHtmlStart();
+		$this->showHeaderStart();
+		$this->showHeaderContent();
+		$this->showHeaderEnd();
+		$this->showBodyStart();
+		$this->showBodyContent();
+		$this->showBodyEnd();
+		$this->showHtmlEnd();
 	}
+	
+	public function showHtmlStart() {
+        echo '<!DOCTYPE html>';
+		echo '<html>';
+    }
+
+    public function showHeaderStart() {
+        echo '<head>';
+    }
+
+    public function showHeaderContent() {
+        echo '<title>Webshop</title>';
+		//Perhaps should be added with other things like stylesheets
+    }
+
+    public function showHeaderEnd() {
+        echo '</head>';
+    }
+
+    public function showBodyStart() {
+        echo '<body>';
+    }
+
+    public function showBodyContent() {
+         echo '<h1>Hello, OOP world!</h1>';
+    }
+
+    public function showBodyEnd() {
+        echo '</body>';
+    }
+
+    public function showHtmlEnd() {
+        echo '</html>';
+    }
 }
 
 ?>
