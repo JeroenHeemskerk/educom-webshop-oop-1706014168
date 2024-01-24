@@ -10,9 +10,11 @@ classDiagram
     BasicDoc <|-- HomeDoc
     BasicDoc <|-- AboutDoc
     BasicDoc <|-- FormDoc
+	BasicDoc <|-- ProductDoc
 
     FormDoc <|-- ContactDoc
     FormDoc <|-- LoginDoc
+	FormDoc <|-- RegistrationDoc
 
     class HtmlDoc{
        +show()
@@ -48,6 +50,10 @@ classDiagram
     class FormDoc{
         <<abstract>>
     }
+	class ProductDoc{
+		#showHeader()
+		#showContent()
+	}
     class ContactDoc{
         #showHeader()
         #showContent()
@@ -56,5 +62,9 @@ classDiagram
         #showHeader()
         #showContent()
     }
+	class RegistrationDoc{
+		#showHeader()
+		#showContent()
+	}
 
 ```
