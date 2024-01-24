@@ -8,6 +8,15 @@ class HtmlDoc {
 	
 	public function show() {
 		//call a bunch of private and protected methods
+		showHtmlStart();
+		showHeaderStart();
+		showHeaderContent();
+		showHeaderEnd();
+		showBodyStart();
+		showBodyContent();
+		showBodyEnd();
+		showHtmlEnd();
+		
 	}
 }
 
