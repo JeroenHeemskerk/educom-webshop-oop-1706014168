@@ -28,26 +28,26 @@ class BasicDoc extends HtmlDoc {
 	public function showResponsePage($data) {
         switch ($data) {
             case 'Home':
-                $page = new HomeDoc($data);
-                break;
-            case 'Contact':
-                $page = new ContactForm($data);
+                $page = new HomeDoc($this->data);
                 break;
             case 'Browse shop':
-                $page = new WebshopDoc($data);
+                $page = new WebshopDoc($this->data);
                 break;
             case 'Login':
-                $page = new LoginDoc($data);
+                $page = new LoginDoc($this->data);
                 break;
             case 'Register':
-                $page = new RegisterDoc($data);
+                $page = new RegisterDoc($this->data);
+                break;
+			case 'Contact':
+                $page = new ContactForm($this->data);
                 break;
             default:
-                $page = new BasicDoc($data);
+                $page = new BasicDoc($this->data);
                 break;
         }
 
-        $page->show();
+        $page->show(); //call show() method to show page
     }
 
 	
@@ -71,11 +71,11 @@ class BasicDoc extends HtmlDoc {
 	
 	private function showMenu() {
 		echo '<nav>';
-		echo '<a href="index.php?page=HomeDoc">Home</a>';
-		echo '<a href="index.php?page=ContactForm">Contact</a>';
+		echo '<a href="../tests/test_home_doc.php">Home</a>';
 		echo '<a href="index.php?page=WebshopDoc">Browse shop</a>';
-		echo '<a href="index.php?page=LoginDoc">Login</a>';
-		echo '<a href="index.php?page=RegisterDoc">Register</a>';
+		echo '<a href="../tests/test_login_form.php">Login</a>';
+		echo '<a href="../tests/test_registration_form.php">Register</a>';
+		echo '<a href="../tests/test_contact_form.php">Contact</a>';
 		echo '<a class="special">The webshop where you can buy anything you want</a>';
 		echo '</nav>';
 	}

@@ -5,7 +5,7 @@
 class RegistrationForm extends FormsDoc {
 	
 	protected function showPageHeader() {
-		echo 'Welcome to registration';
+		echo '<h1>Welcome to registration></h1>';
 	}
 	
 	protected function showBodyContent() {

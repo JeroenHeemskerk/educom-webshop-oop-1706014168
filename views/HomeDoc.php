@@ -4,7 +4,6 @@
 
 class HomeDoc extends BasicDoc {
 	
-	
 	protected function showPageHeader() {
 		echo 'Welcome to this webshop';
 	}
