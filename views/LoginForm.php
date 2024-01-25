@@ -1,8 +1,6 @@
 <?php
 
 	require_once "../views/FormsDoc.php";
-	
-	//should show the login input types, just some html code
 
 class LoginForm extends FormsDoc {
 	
@@ -10,8 +8,8 @@ class LoginForm extends FormsDoc {
 		echo 'Welcome to login';
 	}
 	
-	protected function showBodyContent() {
-		echo '<form method="post">
+	protected function showContent() {
+		echo '<br><form method="post">
 		<label for="user">Enter username:</label>
 		<input type="text" id="user" name="user"> <!--ID is used for javascript and css styling. name is used for form submission -->
 		<label for="password">Enter password:</label>

@@ -8,8 +8,8 @@ class RegistrationForm extends FormsDoc {
 		echo '<h1>Welcome to registration></h1>';
 	}
 	
-	protected function showBodyContent() {
-		echo '<form method="post">
+	protected function showContent() {
+		echo '<br><form method="post">
 		<label for="user">Enter username:</label>
 		<input type="text" id="user" name="register_user"> <!--ID is used for javascript and css styling. name is used for form submission -->
 		<label for="password">Enter password:</label>

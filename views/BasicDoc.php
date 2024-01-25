@@ -72,7 +72,7 @@ class BasicDoc extends HtmlDoc {
 	private function showMenu() {
 		echo '<nav>';
 		echo '<a href="../tests/test_home_doc.php">Home</a>';
-		echo '<a href="index.php?page=WebshopDoc">Browse shop</a>';
+		echo '<a href="../tests/test_webshop_doc.php">Browse shop</a>';
 		echo '<a href="../tests/test_login_form.php">Login</a>';
 		echo '<a href="../tests/test_registration_form.php">Register</a>';
 		echo '<a href="../tests/test_contact_form.php">Contact</a>';
