@@ -9,9 +9,9 @@ class HtmlDoc {
 	public function show() {
 		//call a bunch of private and protected methods
 		$this->showHtmlStart();
-		$this->showHeaderStart();
-		$this->showHeaderContent();
-		$this->showHeaderEnd();
+		$this->showHeadStart();
+		$this->showHeadContent();
+		$this->showHeadEnd();
 		$this->showBodyStart();
 		$this->showBodyContent();
 		$this->showBodyEnd();
@@ -23,7 +23,7 @@ class HtmlDoc {
 		echo '<html>';
     }
 
-    private function showHeaderStart() {
+    private function showHeadStart() {
         echo '<head>';
     }
 
@@ -31,7 +31,7 @@ class HtmlDoc {
         echo '<title>HtmlDoc</title>';
     }
 
-    private function showHeaderEnd() {
+    private function showHeadEnd() {
         echo '</head>';
     }
 

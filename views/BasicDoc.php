@@ -43,7 +43,7 @@ class BasicDoc extends HtmlDoc {
 		echo "Basic pagina";
 	}
 	
-	public function showMenu() {
+	private function showMenu() {
 		echo '<ul>';
 		echo '<li><a href="index.php?page=home">Home</a></li>';
 		echo '<li><a href="index.php?page=contact">Contact</a></li>';
@@ -53,14 +53,14 @@ class BasicDoc extends HtmlDoc {
 		echo '</ul>';
 	}
 	
-	public function showContent() {
+	protected function showContent() {
 		echo "inhoud van de basic pagina";
 	}
 	
 	private function showFooter() {
 		echo '<footer>
            &copy; Patrick Lubbers
-		</footer>'
+		</footer>';
 	}
 	
 	

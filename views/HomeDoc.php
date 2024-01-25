@@ -5,13 +5,13 @@
 class HomeDoc extends BasicDoc {
 	
 	
-	protected function showHeader() {
-		echo '<header>';
-		
-		echo '</header>';
+	protected function showPageHeader() {
+		echo 'Welcome to this webshop';
 	}
 	protected function showContent() {
-		echo 'This is the homepage of the website';
+		echo '<p>Any kind of product can be found under \'Browse shop\'</p>
+			<br>
+			<p>To buy products, firstly login</p>';
 	}
 	
 }

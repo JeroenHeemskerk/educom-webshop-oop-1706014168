@@ -1,7 +1,9 @@
 <?php
   include_once "../views/HomeDoc.php";
   
-  $view = new HomeDoc();
+  $data = array();
+  
+  $view = new HomeDoc($data);
   $view  -> show();
 ?>
 
