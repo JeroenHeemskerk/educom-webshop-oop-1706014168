@@ -4,47 +4,63 @@
 
 class BasicDoc extends HtmlDoc {
 	//protected properties here
+	protected $data;
 	
 	public function __construct($myData) {
-		$this -> data = $myData;
-		showTitle();
-		showCssLinks();
-		showBodyContent();
-		showHeader();
-		showMenu();
-		showContent();
-		showFooter();
+		$this -> data = $myData;		
 	}
 	
 	public function showTitle() {
-		echo '<title>Webshop</title>';
+		echo '<title>';
+		$this->showPageHeader();
+		echo '</title>';
 	}
 	
 	public function showCssLinks() {
-		
+		echo '<link rel="stylesheet" href="../css/style.css">';
 	}
+
+	protected function showHeadContent() {
+        $this->showTitle();
+		$this->showCssLinks();
+    }
 	
-	public function showBodyContent() {
+	// Override van de functie in HtmlDoc
+	protected function showBodyContent() {
 		$this->showHeader();
 		$this->showMenu();
 		$this->showContent();
 		$this->showFooter();
 	}
 	
-	public function showHeader() {
-		
+	private function showHeader() {
+		echo '<header><h1>';
+		$this->showPageHeader();
+		echo '</h1></header>';
+	}
+
+	protected function showPageHeader() {
+		echo "Basic pagina";
 	}
 	
 	public function showMenu() {
-		
+		echo '<ul>';
+		echo '<li><a href="index.php?page=home">Home</a></li>';
+		echo '<li><a href="index.php?page=contact">Contact</a></li>';
+		echo '<li><a href="index.php?page=shopping">Shop</a></li>';
+		echo '<li><a href="index.php?page=login">Login</a></li>';
+		echo '<li><a href="index.php?page=register">Register</a></li>';
+		echo '</ul>';
 	}
 	
 	public function showContent() {
-		
+		echo "inhoud van de basic pagina";
 	}
 	
-	public function showFooter() {
-		
+	private function showFooter() {
+		echo '<footer>
+           &copy; Patrick Lubbers
+		</footer>'
 	}
 	
 	

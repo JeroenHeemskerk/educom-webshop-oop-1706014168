@@ -18,37 +18,36 @@ class HtmlDoc {
 		$this->showHtmlEnd();
 	}
 	
-	public function showHtmlStart() {
+	private function showHtmlStart() {
         echo '<!DOCTYPE html>';
 		echo '<html>';
     }
 
-    public function showHeaderStart() {
+    private function showHeaderStart() {
         echo '<head>';
     }
 
-    public function showHeaderContent() {
-        echo '<header>Webshop</header>';
-		//Perhaps should be added with other things like stylesheets
+    protected function showHeadContent() {
+        echo '<title>HtmlDoc</title>';
     }
 
-    public function showHeaderEnd() {
+    private function showHeaderEnd() {
         echo '</head>';
     }
 
-    public function showBodyStart() {
+    private function showBodyStart() {
         echo '<body>';
     }
 
-    public function showBodyContent() {
+    protected function showBodyContent() {
          echo '<h1>Hello, OOP world!</h1>';
     }
 
-    public function showBodyEnd() {
+    private function showBodyEnd() {
         echo '</body>';
     }
 
-    public function showHtmlEnd() {
+    private function showHtmlEnd() {
         echo '</html>';
     }
 }
