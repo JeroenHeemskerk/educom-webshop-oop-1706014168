@@ -25,6 +25,32 @@ class BasicDoc extends HtmlDoc {
 		$this->showCssLinks();
     }
 	
+	public function showResponsePage($data) {
+        switch ($data) {
+            case 'Home':
+                $page = new HomeDoc($data);
+                break;
+            case 'Contact':
+                $page = new ContactForm($data);
+                break;
+            case 'Browse shop':
+                $page = new WebshopDoc($data);
+                break;
+            case 'Login':
+                $page = new LoginDoc($data);
+                break;
+            case 'Register':
+                $page = new RegisterDoc($data);
+                break;
+            default:
+                $page = new BasicDoc($data);
+                break;
+        }
+
+        $page->show();
+    }
+
+	
 	// Override van de functie in HtmlDoc
 	protected function showBodyContent() {
 		$this->showHeader();
@@ -45,11 +71,11 @@ class BasicDoc extends HtmlDoc {
 	
 	private function showMenu() {
 		echo '<nav>';
-		echo '<a href="index.php?page=home">Home</a>';
-		echo '<a href="index.php?page=contact">Contact</a>';
-		echo '<a href="index.php?page=shopping">Browse shop</a>';
-		echo '<a href="index.php?page=login">Login</a>';
-		echo '<a href="index.php?page=register">Register</a>';
+		echo '<a href="index.php?page=HomeDoc">Home</a>';
+		echo '<a href="index.php?page=ContactForm">Contact</a>';
+		echo '<a href="index.php?page=WebshopDoc">Browse shop</a>';
+		echo '<a href="index.php?page=LoginDoc">Login</a>';
+		echo '<a href="index.php?page=RegisterDoc">Register</a>';
 		echo '<a class="special">The webshop where you can buy anything you want</a>';
 		echo '</nav>';
 	}

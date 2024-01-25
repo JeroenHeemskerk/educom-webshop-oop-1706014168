@@ -17,7 +17,7 @@ Maak hier ook test php files voor aan in de folder /tests.
 
 Maak de classen aan voor de overige paginas in je webshop inclusief test php files.
 
-Pas de functie showResponsePage($data) aan zodat deze een grote switch-case heeft waarin de juiste pagina wordt geïnstancieerd en tenslote de show methode hierop wordt aangeroepen.
+TODO: Pas de functie showResponsePage($data) aan zodat deze een grote switch-case heeft waarin de juiste pagina wordt geïnstancieerd en tenslote de show methode hierop wordt aangeroepen.
 
 Commit regelmatig je code naar je lokale repository
 push je commits naar GitHub
