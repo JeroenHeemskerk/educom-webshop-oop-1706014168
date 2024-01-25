@@ -7,14 +7,13 @@ class HomeDoc extends BasicDoc {
 	
 	protected function showHeader() {
 		echo '<header>';
-	}
-	protected function showContent() {
 		
-	}
-	
-	protected function closeHeader() {
 		echo '</header>';
 	}
+	protected function showContent() {
+		echo 'This is the homepage of the website';
+	}
+	
 }
 
 ?>

@@ -16,11 +16,35 @@ class BasicDoc extends HtmlDoc {
 		showFooter();
 	}
 	
-	protected function showBodyContent() {
+	public function showTitle() {
+		echo '<title>Webshop</title>';
+	}
+	
+	public function showCssLinks() {
+		
+	}
+	
+	public function showBodyContent() {
 		$this->showHeader();
 		$this->showMenu();
 		$this->showContent();
 		$this->showFooter();
+	}
+	
+	public function showHeader() {
+		
+	}
+	
+	public function showMenu() {
+		
+	}
+	
+	public function showContent() {
+		
+	}
+	
+	public function showFooter() {
+		
 	}
 	
 	

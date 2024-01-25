@@ -11,6 +11,9 @@ classDiagram
     BasicDoc <|-- AboutDoc
     BasicDoc <|-- FormDoc
 	BasicDoc <|-- ProductDoc
+	
+	DatabaseClass <|-- FormDoc
+	DatabaseClass <|-- ProductDoc
 
     FormDoc <|-- ContactDoc
     FormDoc <|-- LoginForm
@@ -51,6 +54,15 @@ classDiagram
         #showHeader()
         #showContent()
     }
+	class DatabaseClass{
+		#table
+		#data
+		#mysqli
+		-__construct($mysqli)
+		#run_select_query($data, $table)
+		#run_insert_query($data, $table)
+		#create_instance($row)
+	}
     class FormDoc{
         <<abstract>>
     }

@@ -28,7 +28,7 @@ class HtmlDoc {
     }
 
     public function showHeaderContent() {
-        echo '<title>Webshop</title>';
+        echo '<header>Webshop</header>';
 		//Perhaps should be added with other things like stylesheets
     }
 

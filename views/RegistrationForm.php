@@ -4,6 +4,9 @@
 
 class RegistrationForm extends FormsDoc {
 	
+	function showContent() {
+		
+	}
 }
 
 
