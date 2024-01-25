@@ -12,8 +12,8 @@ classDiagram
     BasicDoc <|-- FormDoc
 	BasicDoc <|-- ProductDoc
 	
-	<!--DatabaseClass <|-- FormDoc-->
-	<!--DatabaseClass <|-- ProductDoc-->
+	DatabaseClass <|-- FormDoc
+	DatabaseClass <|-- ProductDoc
 
     FormDoc <|-- ContactDoc
     FormDoc <|-- LoginForm
