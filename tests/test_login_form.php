@@ -2,7 +2,9 @@
 
   include_once "../views/LoginForm.php";
   
-$loginForm1 = new LoginForm();
+$data = array();  
+  
+$loginForm1 = new LoginForm($data);
 
 $loginForm1 -> show();
 

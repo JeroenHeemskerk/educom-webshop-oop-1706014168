@@ -10,7 +10,7 @@ class LoginForm extends FormsDoc {
 		echo 'Welcome to login';
 	}
 	
-	protected function showContent() {
+	protected function showBodyContent() {
 		echo '<form method="post">
 		<label for="user">Enter username:</label>
 		<input type="text" id="user" name="user"> <!--ID is used for javascript and css styling. name is used for form submission -->

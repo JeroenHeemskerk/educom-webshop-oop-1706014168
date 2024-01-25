@@ -44,13 +44,14 @@ class BasicDoc extends HtmlDoc {
 	}
 	
 	private function showMenu() {
-		echo '<ul>';
-		echo '<li><a href="index.php?page=home">Home</a></li>';
-		echo '<li><a href="index.php?page=contact">Contact</a></li>';
-		echo '<li><a href="index.php?page=shopping">Shop</a></li>';
-		echo '<li><a href="index.php?page=login">Login</a></li>';
-		echo '<li><a href="index.php?page=register">Register</a></li>';
-		echo '</ul>';
+		echo '<nav>';
+		echo '<a href="index.php?page=home">Home</a>';
+		echo '<a href="index.php?page=contact">Contact</a>';
+		echo '<a href="index.php?page=shopping">Browse shop</a>';
+		echo '<a href="index.php?page=login">Login</a>';
+		echo '<a href="index.php?page=register">Register</a>';
+		echo '<a class="special">The webshop where you can buy anything you want</a>';
+		echo '</nav>';
 	}
 	
 	protected function showContent() {

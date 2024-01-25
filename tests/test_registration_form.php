@@ -2,7 +2,9 @@
 
   include_once "../views/RegistrationForm.php";
   
-$registrationForm1 = new RegistrationForm();
+$data = array();  
+  
+$registrationForm1 = new RegistrationForm($data);
 
 $registrationForm1 -> show();
 
