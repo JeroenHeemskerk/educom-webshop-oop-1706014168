@@ -15,7 +15,7 @@ class RegistrationForm extends FormsDoc {
 		<label for="password">Enter password:</label>
 		<input type="password" id="password" name="register_password">
 		<button type="submit" name="register_submit">Submit registration</button>
-	</form>';
+	</form><br>';
 	}
 }
 

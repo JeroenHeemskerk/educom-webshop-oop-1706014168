@@ -15,7 +15,7 @@ class LoginForm extends FormsDoc {
 		<label for="password">Enter password:</label>
 		<input type="password" id="password" name="password">
 		<button type="submit" name="login_submit">Submit login</button>
-	</form>';
+	</form><br>';
 	}
 }
 
