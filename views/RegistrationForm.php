@@ -21,7 +21,7 @@ class RegistrationForm extends FormsDoc {
 		<span class= "error"> ' . $this->model->passwordEr . '</span>
 		</div>
 		<div>
-		<label for="password2">Confirm password:</label>
+		<label for="password2" name="register_password_2 value="' . $this->model->password . '"">Confirm password:</label>
 		<input type="password" id="password2" name="register_password_2">
 		<span class= "error"> ' . $this->model->passwordEr . ' </span>
 		</div>

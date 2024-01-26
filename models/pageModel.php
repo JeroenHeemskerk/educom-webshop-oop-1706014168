@@ -11,7 +11,7 @@ class PageModel {
 	public $errors = array();
 	public $genericErr = "";
 	protected $sessionManager;
-	private $connection;
+	protected $connection;
 	
 	public function __construct($copy) {
 		if (empty($copy)) {

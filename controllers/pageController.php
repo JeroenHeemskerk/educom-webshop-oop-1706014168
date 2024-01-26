@@ -23,10 +23,11 @@ class pageController { //assumption: are not in the hierarchy of inheritance, so
 	
 	private function processRequest() {
 		switch($this->model->page) {
-			case "Login";
+			case "login";
+				include_once "./models/UserModel.php";
 				$this->model = new UserModel ($this->model);
-				$model->validateLogin();
-				if($model->valid) {
+				$this->model->validateLogin();
+				if($this->model->valid) {
 					$this->model->doLoginUser();
 					$this->model->setPage("home");
 				}
