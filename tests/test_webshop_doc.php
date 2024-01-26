@@ -1,6 +1,6 @@
 <?php
 
-  include_once "../views/WebshopDoc.php";
+  include_once "./views/WebshopDoc.php";
 
 $data = array();  
   

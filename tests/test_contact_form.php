@@ -1,6 +1,6 @@
 <?php
 
-  include_once "../views/ContactForm.php";
+  include_once "./views/ContactForm.php";
   
 $data = array();
 

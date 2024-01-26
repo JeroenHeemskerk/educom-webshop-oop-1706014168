@@ -2,11 +2,11 @@
 
 //should retrieve the users shoppingcart from $_SESSION['cart']
 
-	require_once "../views/ProductDoc.php";
+	require_once "./views/ProductDoc.php";
 
 class ShoppingCartDoc extends ProductDoc {
 	
-	public function addToCart() {
+	public function show_cart($connection) {
 		
 	}
 }

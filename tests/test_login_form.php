@@ -1,6 +1,6 @@
 <?php
 
-  include_once "../views/LoginForm.php";
+  include_once "./views/LoginForm.php";
   
 $data = array();  
   

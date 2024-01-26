@@ -1,5 +1,5 @@
 <?php
-  include_once "../views/HomeDoc.php";
+  include_once "./views/HomeDoc.php";
   
   $data = array();
   

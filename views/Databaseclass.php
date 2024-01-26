@@ -88,6 +88,10 @@ class Database {
 	protected place_order($userId, $user, $connection) {
 		
 	}
+	
+	protected insert_into_orders_table($connection, $itemId, $user, $userId, $amount) {
+		
+	}
 }
 
 

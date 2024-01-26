@@ -1,13 +1,12 @@
 <?php
 
-	require_once "../views/HtmlDoc.php";
-
-class BasicDoc extends HtmlDoc {
-	//protected properties here
-	protected $data;
+	require_once "./views/HtmlDoc.php";
 	
-	public function __construct($myData) {
-		$this -> data = $myData;		
+class BasicDoc extends HtmlDoc {
+	protected $model;
+	
+	public function __construct($model) {
+		$this -> model = $model;		
 	}
 	
 	public function showTitle() {
@@ -17,39 +16,13 @@ class BasicDoc extends HtmlDoc {
 	}
 	
 	public function showCssLinks() {
-		echo '<link rel="stylesheet" href="../css/style.css">';
+		echo '<link rel="stylesheet" href="./css/style.css">';
 	}
 
 	protected function showHeadContent() {
         $this->showTitle();
 		$this->showCssLinks();
     }
-	
-	public function showResponsePage($data) {
-        switch ($data) {
-            case 'Home':
-                $page = new HomeDoc($this->data);
-                break;
-            case 'Browse shop':
-                $page = new WebshopDoc($this->data);
-                break;
-            case 'Login':
-                $page = new LoginDoc($this->data);
-                break;
-            case 'Register':
-                $page = new RegisterDoc($this->data);
-                break;
-			case 'Contact':
-                $page = new ContactForm($this->data);
-                break;
-            default:
-                $page = new BasicDoc($this->data);
-                break;
-        }
-
-        $page->show(); //call show() method to show page
-    }
-
 	
 	// Override van de functie in HtmlDoc
 	protected function showBodyContent() {
@@ -71,14 +44,24 @@ class BasicDoc extends HtmlDoc {
 	
 	private function showMenu() {
 		echo '<nav>';
-		echo '<a href="../tests/test_home_doc.php">Home</a>';
-		echo '<a href="../tests/test_webshop_doc.php">Browse shop</a>';
-		echo '<a href="../tests/test_login_form.php">Login</a>';
-		echo '<a href="../tests/test_registration_form.php">Register</a>';
-		echo '<a href="../tests/test_contact_form.php">Contact</a>';
+		echo '<a href="index.php?page=home">Home</a>';
+		echo '<a href="index.php?page=browse_shop">Browse shop</a>';
+		echo '<a href="index.php?page=login">Login</a>';
+		echo '<a href="index.php?page=register">Register</a>';
+		echo '<a href="index.php?page=contact">Contact</a>';
 		echo '<a class="special">The webshop where you can buy anything you want</a>';
 		echo '</nav>';
 	}
+	
+	/*
+	Oud:
+	index.php moet naar --> PageController parameter = Home
+	index.php?page=contact -> PageController parameter = Contact
+	index.php?action=ajax&function=getMenu -> AjaxController parameter = getMenu
+	index.php?action=pdf&report=getSoldProducts -> PdfController parameter = getSoldProducts	
+	
+	I use wrong hrefs
+	*/
 	
 	protected function showContent() {
 		echo "inhoud van de basic pagina";

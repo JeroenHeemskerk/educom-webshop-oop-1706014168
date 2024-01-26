@@ -1,5 +1,5 @@
 <?php
-  include_once "../views/basicDoc.php";
+  include_once "./views/basicDoc.php";
 
   $data = array ( 'page' => 'basic', /* other fields */ );
 
