@@ -16,12 +16,14 @@ class RegistrationForm extends FormsDoc {
 		<span class= "error">' . $this->model->userEr . '</span>
 		</div>
 		<div>
-		<label for="password">Enter password:</label>
+		<label for="password" id="user" name="register_password value="' . $this->model->password . '">Enter password:</label>
 		<input type="password" id="password" name="register_password">
+		<span class= "error"> ' . $this->model->passwordEr . '</span>
 		</div>
 		<div>
-		<label for="password2">Enter password again:</label>
+		<label for="password2">Confirm password:</label>
 		<input type="password" id="password2" name="register_password_2">
+		<span class= "error"> ' . $this->model->passwordEr . ' </span>
 		</div>
 		<input type="hidden" name="page" value="register">
 		<button type="submit" name="register_submit">Submit registration</button>
