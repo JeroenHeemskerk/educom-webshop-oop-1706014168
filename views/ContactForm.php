@@ -17,22 +17,22 @@ class ContactForm extends FormsDoc {
 			
 		echo '<br><form method="post">
 		<div>
-		<label for="user">Enter username:</label>
-		<input type="text" id="user" name="register_user" value="' . $this->model->user . '"> <!--ID is used for javascript and css styling. name is used for form submission -->
-		<span class= "error">' . $this->model->userEr . '</span>
+		<label for="user">Enter your name:</label>
+		<input type="text" id="user" name="contact_name" value="' . $this->model->name . '"> <!--ID is used for javascript and css styling. name is used for form submission -->
+		<span class= "error">' . $this->model->nameEr . '</span>
 		</div>
 		<div>
-		<label for="password" id="user" name="register_password value="' . $this->model->password . '">Enter password:</label>
-		<input type="password" id="password" name="register_password">
-		<span class= "error"> ' . $this->model->passwordEr . '</span>
+		<label for="email">Enter password:</label> <!--change to email, define property-->
+		<input type="text" id="email" name="contact_email value="' . $this->model->email . '">
+		<span class= "error"> ' . $this->model->emailEr . '</span>
 		</div>
 		<div>
-		<label for="password2">Confirm password:</label>
-		<input type="password" id="password2" name="register_password_2">
-		<span class= "error"> ' . $this->model->passwordEr . ' </span>
+		<label for="comment">Write your comment here</label>
+		<input type="textarea" id="comment_box" name="comment_box" value ="' . $this->model->comment . '">
+		<span class= "error"> ' . $this->model->commentEr . ' </span>
 		</div>
-		<input type="hidden" name="page" value="register">
-		<button type="submit" name="register_submit">Submit registration</button>
+		<input type="hidden" name="page" value="contact">
+		<button type="submit" name="contact_submit">Submit message</button>
 	</form><br>';
 	}
 	

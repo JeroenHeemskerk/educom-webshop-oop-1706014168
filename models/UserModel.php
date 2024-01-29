@@ -4,13 +4,18 @@
 
 class UserModel extends pageModel {
 	public $name;
+	public $nameEr;
 	public $user = "";
+	public $userEr = "";
 	public $password = "";
 	public $password_2 = "";
-	public $userEr = "";
 	public $passwordEr = "";
 	public $password2Er = "";
+	public $email = "";
+	public $emailEr = "";
 	public $valid = false;
+	public $comment = "";
+	public $commentEr = "";
 	
 	public function __construct($pageModel) {
 		PARENT:: __construct($pageModel);
@@ -58,6 +63,30 @@ class UserModel extends pageModel {
 					} else {
 						$this->valid = true;
 					}
+			}
+		}
+	}
+
+	public function validateMessage() {
+		//do validation
+		if ($this->isPost) {
+			$this->name = $this->getPostVar('contact_name');
+			if (empty($this->name)) {
+				$this->nameEr = "Naam is verplicht";
+			}
+	
+			$this->email = $this->getPostVar('contact_email');
+			if (empty($this->email)) {
+				$this->emailEr = "email is verplicht";
+			}
+	
+			$this->comment = $this->getPostVar('comment_box');
+			if (empty($this->comment)) {
+				$this->commentEr = "veld leeg: vul een bericht in";
+			}
+	
+			if (empty($this->nameEr) && empty($this->emailEr) && empty($this->commentEr)) {
+				$this->valid = true;
 			}
 		}
 	}

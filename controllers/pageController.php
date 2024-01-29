@@ -41,6 +41,15 @@ class pageController { //assumption: are not in the hierarchy of inheritance, so
 					$this->model->setPage("login");
 				}
 				break;
+			case "contact";
+				include_once "./models/UserModel.php";
+				$this->model = new UserModel($this->model);
+				$this->model->validateMessage(); //non-existent and unnecessary
+				if($this->model->valid) {
+					$this->model->saveMessage();
+					$this->model->setPage("contact");
+				}
+				break;
 		}
 	}
 	
