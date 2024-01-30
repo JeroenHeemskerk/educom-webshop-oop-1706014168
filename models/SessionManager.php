@@ -21,6 +21,10 @@ class SessionManager {
     public function getCart() {
         return $_SESSION['cart'] ?? null;
     }
+
+    public function addToCart($item) {
+        $_SESSION['cart'][] = $item;
+    }
 	
 }
 

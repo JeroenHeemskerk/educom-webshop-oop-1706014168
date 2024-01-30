@@ -94,11 +94,11 @@ function add_to_cart($itemId, $userId, $amount) {
     $_SESSION['cart'][] = array('userId' => $userId, 'itemId' => $itemId, 'amount' => $amount);
 }
 
-function get_order_history($connection, $user, $userId) {
+function get_order_history($connection) { //used to fetch $user and $userid arguments too
 		// Query to get items in the user's cart
         $query = "SELECT orders.id, items.item_name, orders.user_id, orders.amount FROM orders
                   JOIN items ON orders.item_id = items.id
-                  WHERE orders.user_id = $userId";
+                  WHERE orders.user_id = 2"; //Should be: where orders.user_id = $userId
 
         $result = mysqli_query($connection, $query);
 		

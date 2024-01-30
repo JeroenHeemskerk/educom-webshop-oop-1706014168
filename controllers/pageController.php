@@ -55,6 +55,7 @@ class pageController { //assumption: are not in the hierarchy of inheritance, so
 				include_once "./models/ShopModel.php";
 				$this->model = new ShopModel($this->model);
 				$this->model->prepareWebshopData();
+				$this->model->prepareOrderData();
 				//$this->model->showCart();
 				//$this->model->showOrders();
 				/*

@@ -7,6 +7,7 @@ session_start();
 class ShopModel extends pageModel {
     public $items = []; //empty array of items
     public $cart = []; //empty array of cart items
+    public $orders = [];
 
     public function __construct($pageModel) {
 		PARENT:: __construct($pageModel);
@@ -19,11 +20,9 @@ class ShopModel extends pageModel {
         $this->items = $items;
     }
 
-    public function prepareCartData() {
-        $cart = 
-
-
-
+    public function prepareOrderData() {
+        $orders = get_order_history($this->connection);
+        $this->orders = $orders;
     }
 
     //add cart
