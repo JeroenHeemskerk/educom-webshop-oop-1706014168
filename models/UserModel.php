@@ -57,11 +57,13 @@ class UserModel extends pageModel {
 				$this->passwordEr = "Password is verplicht";
 			}
 			if (empty($this->userEr) && empty($this->passwordEr)) { //both fields filled in?
-					$userData = $this->authenticate_user($this->user, $this->password); 
+					$userData = $this->authenticateUser($this->user, $this->password); 
 					if ($userData !== null) {
 						$this->userEr = "Gebruiker bestaat al!";
 					} else {
 						$this->valid = true;
+						//save user
+						$result = $this->saveUser($this->user, $this->password);
 					}
 			}
 		}
@@ -91,7 +93,7 @@ class UserModel extends pageModel {
 		}
 	}
 	
-	public function authenticate_user() {
+	public function authenticateUser() {
 			// Authenticate username
 		$userData = retrieve_userdata($this->connection, $this->user);
 
@@ -110,6 +112,16 @@ class UserModel extends pageModel {
 			// Username does not exist
 			return null;
 		}
+	}
+
+	public function hash_password() {
+		$hashedPassword = password_hash($this->password, PASSWORD_DEFAULT);
+		return $hashedPassword;
+	}
+
+	public function saveUser() {
+		$hashedPassword = $this->hash_password();
+		add_user_database_pdo($this->connection, $this->user, $hashedPassword);
 	}
 }
 

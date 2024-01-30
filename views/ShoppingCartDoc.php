@@ -20,7 +20,7 @@ class ShoppingCartDoc extends ProductDoc {
 	
 			foreach ($_SESSION['cart'] as $cartItem) {
 				$itemId = $cartItem['itemId'];
-				$itemDetails = get_specific_item_details($connection, $itemId); // I think I should improve the structure
+				$itemDetails = get_specific_item_details($this->connection, $itemId); // I think I should improve the structure
 				
 				echo '<tr>';
 				echo '<td>' . $itemDetails['item_name']	. '</td>';

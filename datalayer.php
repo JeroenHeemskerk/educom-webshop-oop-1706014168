@@ -28,7 +28,7 @@ function add_user_database($connection, $user, $hashedPassword){
 	$user= mysqli_real_escape_string($connection, $user);
 	$hashedPassword = mysqli_real_escape_string($connection, $hashedPassword);
 
-	$insertQuery = "INSERT INT username (username, password_hashed) VALUES ('$user', '$hashedPassword')"; //now whenever wanting to register someone it says user already exists
+	$insertQuery = "INSERT INTO username (username, password_hashed) VALUES ('$user', '$hashedPassword')"; //now whenever wanting to register someone it says user already exists
 	$result = mysqli_query($connection, $insertQuery);
 	
 	if (!$result) {
@@ -36,6 +36,30 @@ function add_user_database($connection, $user, $hashedPassword){
 		//mysql_error does a check on the query, but it doesnt throw the exception.
 	}
 	return $result;
+
+
+}
+
+function add_user_database_pdo($connection, $user, $hashedPassword) {
+//Insert user data into database
+$insertQuery = "INSERT INTO username (username, password_hashed) VALUES (?, ?)";
+$stmt = $connection->prepare($insertQuery);
+
+if (!$stmt) {
+    // Handle the case where prepare() fails
+    echo "Error: " . $connection->error; // Output the error message
+    return false;
+}
+
+//Bind parameters and execute query
+$stmt->bind_param("ss", $user, $hashedPassword);
+$stmt->execute();
+
+if ($stmt->affected_rows > 0) {
+    return true; //user insertion succesful
+} else {
+    return false; //failed
+}
 }
 
 function retrieve_userdata($connection, $user) {

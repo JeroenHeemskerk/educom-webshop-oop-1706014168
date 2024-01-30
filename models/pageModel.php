@@ -40,7 +40,7 @@ class PageModel {
 		$this->createMenu();
 	}
 	
-	protected function setPage($newPage) {
+	public function setPage($newPage) { //it only seems to work when public
 		$this->page = $newPage;
 	}
 	
