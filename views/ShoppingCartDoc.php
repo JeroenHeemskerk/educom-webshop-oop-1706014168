@@ -4,7 +4,7 @@
 
 	require_once "./views/ProductDoc.php";
 
-class ShoppingCartDoc extends ProductDoc {
+class ShoppingCartDoc extends FormsDoc {
 	
 	public function show_cart($connection) {
 		

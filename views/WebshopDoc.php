@@ -1,20 +1,64 @@
 <?php
 
-//Not sure what this should show. Perhaps it should make the database connections.
+//This should retrieve the product items from the database and display them.
 
-	require_once "./views/ProductDoc.php";
+//This page should also show the shopping cart. 
 
-class WebshopDoc extends ProductDoc {
+	require_once "FormsDoc.php";
+
+class WebshopDoc extends FormsDoc {
 	
 	protected function showPageHeader() {
 		echo '<h1>Webshop all details here</h1>';
 	}
-	
+
 	protected function showContent() {
-		echo '<p>Email: Rosevalley@gmail.com</p>
-			<br>
-			<p>To buy products, firstly login please! This is the browse shop page for members</p>';
+		$this->show_products($this->model->items);
+	}
+
+	private function show_products($items) { 
+		echo '<form method="post">';
+		echo '<table>';
+		echo '<tr>
+				<th>Item</th>
+				<th>Image</th>
+				<th>Item Name</th>
+				<th>Price</th>
+				<th>Amount</th>
+				<th>Add to cart</th>
+			  </tr>';
+		
+		foreach($items as $item) {
+			echo '<tr>';
+			echo '<td>' . $item['id'] . '</td>';
+			echo '<td><img src="' . $item['image_url'] . '" alt="Item Image" style="width:50px;height:50px;"></td>';
+			echo '<td>' . $item['item_name'] . '</td>';
+			echo '<td>' . $item['price'] . '</td>';
+			echo '<td>';
+			echo '<input type="number" name="amount[' . $item['id'] . ']" min="1" value="1" required>';
+			echo '</td>';
+			echo '<td>';
+			
+			//I want the input type to pass the itemID instead of the button
+			
+			echo '<input type="hidden" id="itemId" name="itemId" value="34657" />';
+			
+			echo '<button type="submit" class="submit" name="addToCart" value="' . $item['id'] . '">Add to Cart</button>'; //changed this code to change name of button
+			echo '</td>';
+			echo '</tr>';
+		}
+		
+		echo '<tr>';
+		echo '<td><button type="submit" class="submit" name="placeOrder">Place Order</button></td>';
+		echo '</tr>';
+	
+		echo '</table>';
+		echo '</form>';
 	}
 }
+
+
+
+
 
 ?>

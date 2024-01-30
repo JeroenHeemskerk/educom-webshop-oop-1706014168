@@ -1,5 +1,7 @@
 <?php
 
+//when logged in -- replace login/register with logout/cart
+
 session_start();
 
 include 'datalayer.php';

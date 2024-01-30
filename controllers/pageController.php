@@ -4,6 +4,7 @@ require_once "./models/PageModel.php";
 
 class pageController { //assumption: are not in the hierarchy of inheritance, so all functions public
 	private $model;
+	private $db;
 	
 	public function __construct() {
 		$this->model = new PageModel(NULL);
@@ -50,6 +51,21 @@ class pageController { //assumption: are not in the hierarchy of inheritance, so
 					$this->model->setPage("contact");
 				}
 				break;
+			case "browse_shop";
+				include_once "./models/ShopModel.php";
+				$this->model = new ShopModel($this->model);
+				$this->model->prepareWebshopData();
+				//$this->model->showCart();
+				//$this->model->showOrders();
+				/*
+				if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) { //change to oop style
+					$this->model->show_cart();
+				}
+
+				if (empty($this->model->userId)) {
+						$this->model->show_previous_orders();
+				}
+				*/
 		}
 	}
 	
@@ -57,8 +73,7 @@ class pageController { //assumption: are not in the hierarchy of inheritance, so
 	
 	private function showResponse() {
 		$this->model->createMenu();
-		
-		var_dump($this->model->page);
+	
 		switch($this->model->page) {
 			case "home":
 				require_once("views/homeDoc.php");
@@ -68,6 +83,10 @@ class pageController { //assumption: are not in the hierarchy of inheritance, so
 				include_once "./views/WebshopDoc.php";
                 $page = new WebshopDoc($this->model);
                 break;
+			case 'cart': //NEW CART PAGE
+				include_once  "./views/ShoppingCartDoc.php";
+				$page = new ShoppingCartDoc($this->model);
+
             case 'login':
 				include_once "./views/LoginForm.php";
                 $page = new LoginForm($this->model);
