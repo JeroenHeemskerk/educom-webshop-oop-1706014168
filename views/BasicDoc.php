@@ -53,16 +53,6 @@ class BasicDoc extends HtmlDoc {
 		echo '</nav>';
 	}
 	
-	/*
-	Oud:
-	index.php moet naar --> PageController parameter = Home
-	index.php?page=contact -> PageController parameter = Contact
-	index.php?action=ajax&function=getMenu -> AjaxController parameter = getMenu
-	index.php?action=pdf&report=getSoldProducts -> PdfController parameter = getSoldProducts	
-	
-	I use wrong hrefs
-	*/
-	
 	protected function showContent() {
 		echo "inhoud van de basic pagina";
 	}

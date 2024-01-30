@@ -7,8 +7,8 @@ function show_welcome($user) {
 	echo "<br><br>";
 }
 
-function show_welcome_message($loginData) {
-	echo "Welcome " . $loginData . " !";
+function show_welcome_message() {
+	echo "Welcome " . $_SESSION['user'] . " !";
 	echo '<a href="page_shopping.php">';
 	echo '<br>';
 	echo '<button type="submit">go to shopping mall</button>';

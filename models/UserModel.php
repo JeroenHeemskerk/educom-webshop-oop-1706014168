@@ -34,7 +34,7 @@ class UserModel extends pageModel {
 				$this->passwordEr = "Password is verplicht";
 			}
 			if (empty($this->userEr) && empty($this->passwordEr)) {
-				$userData = $this->authenticate_user($this->user, $this->password); // fixed variable name
+				$userData = $this->authenticateUser($this->user, $this->password); // fixed variable name
 				if ($userData == null || $userData == "password incorrect") { // fixed variable name
 					$this->userEr = "Gebruiker onbekend of verkeerd password";
 				} else {
@@ -63,7 +63,6 @@ class UserModel extends pageModel {
 					} else {
 						$this->valid = true;
 						//save user
-						$result = $this->saveUser($this->user, $this->password);
 					}
 			}
 		}
@@ -112,6 +111,10 @@ class UserModel extends pageModel {
 			// Username does not exist
 			return null;
 		}
+	}
+
+	public function doLoginUser() {
+		$_SESSION['user'] = $this->user;
 	}
 
 	public function hash_password() {

@@ -12,11 +12,19 @@ class HomeDoc extends BasicDoc {
 		echo 'Welcome to this webshop';
 	}
 	protected function showContent() {
-		echo '<p>Any kind of product can be found under \'Browse shop\'</p>
-			<br>
-			<p>To buy products, firstly login</p>';
-	}
-	
+		$this->showWelcomeMessage();
+        echo '<p>Any kind of product can be found under \'Browse shop\'</p>
+            <br>
+            <p>To buy products, firstly login</p>';
+    }
+
+	public function showWelcomeMessage() {
+       if (isset($_SESSION['user'])) {
+		echo "Welcome " . $_SESSION['user'] . "!";
+	   } else {
+		echo 'User not logged in!';
+	   }
+    }
 }
 
 ?>

@@ -1,7 +1,5 @@
 <?php
 
-session_start();
-
 //should retrieve the users shoppingcart from $_SESSION['cart']
 
 	require_once "./views/ProductDoc.php";
