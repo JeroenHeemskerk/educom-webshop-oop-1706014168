@@ -6,8 +6,8 @@ class SessionManager {
         session_start();
     }
 
-    public function setUser($userData) {
-        $_SESSION['user'] = $userData;
+    public function setUser() {
+        $_SESSION['user'] = $this->user;
     }
 
     public function getUser(){

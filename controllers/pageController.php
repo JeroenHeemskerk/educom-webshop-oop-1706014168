@@ -72,7 +72,7 @@ class pageController { //assumption: are not in the hierarchy of inheritance, so
 	
 	//to presentation layer
 	
-	private function showResponse() {
+	private function showResponse() { //change this so that when if(!empty($_SESSION['user'])) - it doesnt show login/register but logout/cart
 		$this->model->createMenu();
 	
 		switch($this->model->page) {

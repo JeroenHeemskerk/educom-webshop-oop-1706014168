@@ -114,7 +114,10 @@ class UserModel extends pageModel {
 	}
 
 	public function doLoginUser() {
-		$_SESSION['user'] = $this->user;
+		//old: I want to do this in session manager: $_SESSION['user'] = $this->user;
+
+		$sessionManager = $this->getSessionManager();
+		$sessionManager->setUser($this->user);
 	}
 
 	public function hash_password() {

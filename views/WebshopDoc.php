@@ -19,6 +19,7 @@ class WebshopDoc extends FormsDoc {
 
 	private function show_products($items) { 
 		echo '<form method="post">';
+		var_dump($_SESSION['user']);
 		echo '<table>';
 		echo '<tr>
 				<th>Item</th>

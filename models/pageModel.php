@@ -63,6 +63,10 @@ class PageModel {
 		}
 		*/
 	}
+
+	public function getSessionManager() {
+		return $this->sessionManager;
+	}
 }
 
 //this class interacts with $_SESSIONS etc..
