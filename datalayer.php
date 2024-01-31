@@ -87,10 +87,11 @@ function get_username_id($connection, $user) {
     $query = "SELECT id FROM username WHERE username = '$user'";
     $result = mysqli_query($connection, $query);
 	if ($result && ($row = mysqli_fetch_assoc($result))) {
-        return $row['id']; //we need the user_id
+        $userId = $row['id']; //we need the user_id
     } else {
 		return null;
 	}
+    return $userId;
 }
 
 function get_items($connection) {

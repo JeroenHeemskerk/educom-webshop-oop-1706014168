@@ -14,7 +14,6 @@ class ShopModel extends pageModel {
     public function prepareWebshopData() {
         //Call function to get items from database
         $items = get_items($this->connection);
-
         $this->items = $items;
     }
 
@@ -23,8 +22,27 @@ class ShopModel extends pageModel {
         $this->orders = $orders;
     }
 
-    //add cart
+    public function addToCart($userId, $itemId, $amount) {
+        if (!isset($_SESSION['cart'])) {
+            $_SESSION['cart'] = array();
+        }
+        //Add item to the cart array
+        $this->cart[] = array('userId' => $userId, 'itemId' => $itemId, 'amount' => $amount);
+    }
 
-    //add previous orders
+    public function placeOrder($userId, $user) {
+        if (!empty($this->cart)) {
+            foreach ($this->cart as $cartItem) {
+                $itemId = $cartItem['itemId'];
+                $amount = $cartItem['amount'];
+                $this->insertIntoOrdersTable($this->connection, $itemId, $user, $userId, $amount);
+            }
 
+            //Clearing the cart after placing the order
+            $this->cart = [];
+            echo "Order placed successfully!";
+        } else {
+            echo "Your cart is empty. Add items before placing an order.";
+        }
+    }
 }

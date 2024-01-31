@@ -18,6 +18,7 @@ class pageController { //assumption: are not in the hierarchy of inheritance, so
 	
 	private function getRequest() {
 		$this->model->getRequestedPage();
+		var_dump($_POST);
 	}
 	
 	//Business flow code
@@ -31,6 +32,7 @@ class pageController { //assumption: are not in the hierarchy of inheritance, so
 				if($this->model->valid) {
 					$this->model->doLoginUser();
 					$this->model->setPage("home");
+					$this->model->getUserId();
 				}
 				break;
 			case "register";
@@ -52,22 +54,45 @@ class pageController { //assumption: are not in the hierarchy of inheritance, so
 				}
 				break;
 			case "browse_shop";
+				//to handle form submissions:
+				if ($_SERVER["REQUEST_METHOD"] === "POST") {
+					if (isset($_POST['addToCart'])) {
+						echo "it is working";
+						$itemId = $_POST['addToCart'];
+						$amount = $_POST['amount'][$itemId];
+						$this->handleAddToCart($itemId, $amount);
+					}
+				}
+				if (isset($_POST['placeOrder'])) {
+					$this->handlePlaceOrder();
+				}
+
 				include_once "./models/ShopModel.php";
 				$this->model = new ShopModel($this->model);
 				$this->model->prepareWebshopData();
 				$this->model->prepareOrderData();
-				//$this->model->showCart();
-				//$this->model->showOrders();
-				/*
-				if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) { //change to oop style
-					$this->model->show_cart();
-				}
-
-				if (empty($this->model->userId)) {
-						$this->model->show_previous_orders();
-				}
-				*/
+				break;
 		}
+	}
+
+	private function retrieveUserId() {
+		include_once "./models/UserModel.php";
+		$this->model = new UserModel($this->model);
+		$userId = $this->model->getUserId();
+		return $userId;
+	}
+
+	private function handleAddToCart($itemId, $amount) {
+		$userId = $this->retrieveUserId();
+		include_once "./models/ShopModel.php";
+		$this->model = new ShopModel($this->model);
+		$this->model->addToCart($userId, $itemId, $amount); //Implement addToCart method in ShopModel
+	}
+
+	private function handlePlaceOrder() {
+		include_once "./models/ShopModel.php";
+		$this->model = new ShopModel($this->model);
+		$this->model->placeOrder(); // Implement placeOrder method in ShopModel
 	}
 	
 	//to presentation layer

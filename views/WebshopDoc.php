@@ -14,6 +14,7 @@ class WebshopDoc extends FormsDoc {
 
 	protected function showContent() {
 		$this->show_products($this->model->items);
+		$this->show_cart();
 		$this->show_orders($this->model->orders);
 	}
 
@@ -37,6 +38,7 @@ class WebshopDoc extends FormsDoc {
 			echo '<td>' . $item['item_name'] . '</td>';
 			echo '<td>' . $item['price'] . '</td>';
 			echo '<td>';
+			echo '<input type="hidden" id="page" name="page" value="browse_shop">';
 			echo '<input type="number" name="amount[' . $item['id'] . ']" min="1" value="1" required>';
 			echo '</td>';
 			echo '<td>';
@@ -45,7 +47,7 @@ class WebshopDoc extends FormsDoc {
 			
 			echo '<input type="hidden" id="itemId" name="itemId" value="34657" />';
 			
-			echo '<button type="submit" class="submit" name="addToCart" value="' . $item['id'] . '">Add to Cart</button>'; //changed this code to change name of button
+			echo '<button type="submit" class="submit" name="addToCart" value="' . $item['id'] . '">Add to Cart</button>'; 
 			echo '</td>';
 			echo '</tr>';
 		}
@@ -56,6 +58,33 @@ class WebshopDoc extends FormsDoc {
 	
 		echo '</table>';
 		echo '</form>';
+	}
+
+	function show_cart() {
+		if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
+			echo '<h3>Shopping Cart:</h3>';
+			echo '<table>';
+			echo '<tr>
+					<th>Item Name</th>
+					<th>Item ID</th>
+					<th>Amount</th>
+				  </tr>';
+	
+			foreach ($_SESSION['cart'] as $cartItem) {
+				$itemId = $cartItem['itemId'];
+				$itemDetails = get_specific_item_details($this->connection, $itemId); // I think I should improve the structure
+				
+				echo '<tr>';
+				echo '<td>' . $itemDetails['item_name']	. '</td>';
+				echo '<td>' . $itemId . '</td>';
+				echo '<td>' . $cartItem['amount'] . '</td>';
+				echo '</tr>';
+			}
+	
+			echo '</table>';
+		} else {
+			echo 'Your cart is empty.';
+		}
 	}
 
 	private function show_orders($orders) { 
