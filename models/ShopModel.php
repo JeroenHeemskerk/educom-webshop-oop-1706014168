@@ -29,11 +29,15 @@ class ShopModel extends pageModel {
 
     public function addToCart($userId, $itemId, $amount, $itemDetails) {
         if (!isset($_SESSION['cart'])) {
-            $_SESSION['cart'] = array();
+            $_SESSION['cart'] = [];
         }
         //Add item to the cart array
-        $this->cart[] = array('userId' => $userId, 'itemId' => $itemId, 'amount' => $amount, 'item_name' => implode(" ",$itemDetails)); 
-        $_SESSION['cart'] = $this->cart;
+        $_SESSION['cart'][] = array(
+            'userId' => $userId, 
+            'itemId' => $itemId, 
+            'amount' => $amount, 
+            'item_name' => implode(" ",$itemDetails)
+        ); 
     }
 
     public function setItemDetails($itemDetails) {
