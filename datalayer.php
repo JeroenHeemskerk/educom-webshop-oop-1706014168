@@ -83,14 +83,25 @@ function retrieve_userdata($connection, $user) {
 
 function get_username_id($connection, $user) {
 	
+    //Sanitize user input 
+$user = mysqli_real_escape_string($connection, $user);
+
 	//Gets username ID from the 'username' table
     $query = "SELECT id FROM username WHERE username = '$user'";
     $result = mysqli_query($connection, $query);
-	if ($result && ($row = mysqli_fetch_assoc($result))) {
-        $userId = $row['id']; //we need the user_id
+	if (!$result) {
+        die("Database query failed.");  //improve error handling here
+    } 
+
+    if ($row = mysqli_fetch_assoc($result)) {
+        $userId = $row['id'];
     } else {
-		return null;
-	}
+        //username not found
+        $userId = null;
+    }
+    // Free result set resleaset the memory used
+    mysqli_free_result($result);
+    
     return $userId;
 }
 
