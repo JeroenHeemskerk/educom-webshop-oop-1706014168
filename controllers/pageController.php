@@ -86,7 +86,8 @@ class pageController { //assumption: are not in the hierarchy of inheritance, so
 		$userId = $this->retrieveUserId();
 		include_once "./models/ShopModel.php";
 		$this->model = new ShopModel($this->model);
-		$this->model->addToCart($userId, $itemId, $amount); //Implement addToCart method in ShopModel
+		$itemDetails = $this->model->cartSpecificItemDetails($itemId);
+		$this->model->addToCart($userId, $itemId, $amount, $itemDetails); //Implement addToCart method in ShopModel
 	}
 
 	private function handlePlaceOrder() {

@@ -60,7 +60,7 @@ class WebshopDoc extends FormsDoc {
 		echo '</form>';
 	}
 
-	function show_cart() {
+	private function show_cart() {
 		if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
 			echo '<h3>Shopping Cart:</h3>';
 			echo '<table>';
@@ -72,10 +72,9 @@ class WebshopDoc extends FormsDoc {
 	
 			foreach ($_SESSION['cart'] as $cartItem) {
 				$itemId = $cartItem['itemId'];
-				$itemDetails = get_specific_item_details($this->connection, $itemId); // I think I should improve the structure
-				
+
 				echo '<tr>';
-				echo '<td>' . $itemDetails['item_name']	. '</td>';
+				echo '<td>' . $cartItem['item_name']	. '</td>';
 				echo '<td>' . $itemId . '</td>';
 				echo '<td>' . $cartItem['amount'] . '</td>';
 				echo '</tr>';

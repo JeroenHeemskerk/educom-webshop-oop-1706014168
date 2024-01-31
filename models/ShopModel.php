@@ -22,12 +22,22 @@ class ShopModel extends pageModel {
         $this->orders = $orders;
     }
 
-    public function addToCart($userId, $itemId, $amount) {
+    public function cartSpecificItemDetails($itemId) {
+        $itemDetails = get_specific_item_details($this->connection, $itemId);
+        return $itemDetails;
+    }
+
+    public function addToCart($userId, $itemId, $amount, $itemDetails) {
         if (!isset($_SESSION['cart'])) {
             $_SESSION['cart'] = array();
         }
         //Add item to the cart array
-        $this->cart[] = array('userId' => $userId, 'itemId' => $itemId, 'amount' => $amount);
+        $this->cart[] = array('userId' => $userId, 'itemId' => $itemId, 'amount' => $amount, 'item_name' => $itemDetails);
+        $_SESSION['cart'] = $this->cart;
+    }
+
+    public function setItemDetails($itemDetails) {
+        $this->itemDetails = $itemDetails;
     }
 
     public function placeOrder($userId, $user) {
