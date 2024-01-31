@@ -18,6 +18,8 @@ class pageController { //assumption: are not in the hierarchy of inheritance, so
 	
 	private function getRequest() {
 		$this->model->getRequestedPage();
+		var_dump($_SESSION['user_id']);
+		var_dump($_SESSION['cart']);
 	}
 	
 	//Business flow code
@@ -32,6 +34,7 @@ class pageController { //assumption: are not in the hierarchy of inheritance, so
 					$this->model->doLoginUser();
 					$this->model->setPage("home");
 					$this->userId = $this->model->getUserId();
+					$_SESSION['user_id'] = $this->userId;
 				}
 				break;
 			case "register";
