@@ -105,7 +105,7 @@ function get_items($connection) {
 }
 
 function get_specific_item_details($connection, $itemId) {
-    $query = "SELECT * FROM items WHERE id = $itemId";
+    $query = "SELECT item_name FROM items WHERE id = $itemId"; //could be more generic
     $result = mysqli_query($connection, $query);
     return mysqli_fetch_assoc($result); //returns one row
 }

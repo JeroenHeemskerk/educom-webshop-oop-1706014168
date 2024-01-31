@@ -32,7 +32,7 @@ class ShopModel extends pageModel {
             $_SESSION['cart'] = array();
         }
         //Add item to the cart array
-        $this->cart[] = array('userId' => $userId, 'itemId' => $itemId, 'amount' => $amount, 'item_name' => $itemDetails);
+        $this->cart[] = array('userId' => $userId, 'itemId' => $itemId, 'amount' => $amount, 'item_name' => implode(" ",$itemDetails)); 
         $_SESSION['cart'] = $this->cart;
     }
 
