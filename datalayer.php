@@ -131,10 +131,12 @@ function add_to_cart($itemId, $userId, $amount) {
 }
 
 function get_order_history($connection) { //used to fetch $user and $userid arguments too
+    $userId = $_SESSION['user_id'];
+
 		// Query to get items in the user's cart
         $query = "SELECT orders.id, items.item_name, orders.user_id, orders.amount FROM orders
                   JOIN items ON orders.item_id = items.id
-                  WHERE orders.user_id = 2"; //Should be: where orders.user_id = $userId
+                  WHERE orders.user_id = $userId"; //Should be: where orders.user_id = $userId
 
         $result = mysqli_query($connection, $query);
 		
@@ -171,8 +173,6 @@ function place_order($userId, $user, $connection) {
 }
 
 function insert_into_orders_table($connection, $itemId, $user, $userId, $amount) {
-	
-	$userId = get_username_id($connection, $user);
 		
         // Insert into the "orders" table
         $query = "INSERT INTO orders (user_id, item_id, amount) VALUES ($userId, $itemId, $amount)";
@@ -181,11 +181,13 @@ function insert_into_orders_table($connection, $itemId, $user, $userId, $amount)
         if (!$result) {
             die("Error inserting into orders table: " . mysqli_error($connection));
         }
-		
+	
+        /* not important for now
     $itemDetails = get_specific_item_details($connection, $itemId);
 		//success message
     echo "Order made for item: " . $itemDetails['item_name'];
 	echo "<br>";
+        */
 }
 
 ?>

@@ -22,7 +22,9 @@ class pageController { //assumption: are not in the hierarchy of inheritance, so
 		echo "<br>user:";
 		var_dump($_SESSION['user']); //null now
 		echo "<br>userId:";
-		var_dump($userId);
+		var_dump($_SESSION['user_id']);
+		echo "<br>cart session:";
+		var_dump($_SESSION['cart']);
 	}
 	
 	//Business flow code
@@ -36,7 +38,7 @@ class pageController { //assumption: are not in the hierarchy of inheritance, so
 				if($this->model->valid) {
 					$this->model->doLoginUser();
 					$this->model->setPage("home");
-					$userId = $this->model->getUserId();
+					$this->userId = $this->model->getUserId();
 				}
 				break;
 			case "register";
@@ -84,18 +86,18 @@ class pageController { //assumption: are not in the hierarchy of inheritance, so
 	}
 
 	private function handleAddToCart($itemId, $amount) {
-		$userId = $this->retrieveUserId();
+		$userId = $_SESSION['user_id'];
 		include_once "./models/ShopModel.php";
 		$this->model = new ShopModel($this->model);
 		$itemDetails = $this->model->cartSpecificItemDetails($itemId);
-		$this->model->addToCart($userId, $itemId, $amount, $itemDetails); //Implement addToCart method in ShopModel
+		$this->model->addToCart($_SESSION['user_id'], $itemId, $amount, $itemDetails); //Implement addToCart method in ShopModel
 	}
 
 	private function handlePlaceOrder() {
-		$userId = $this->retrieveUserId();
+		$userId = $_SESSION['user_id'];
 		include_once "./models/ShopModel.php";
 		$this->model = new ShopModel($this->model);
-		$this->model->placeOrder($userId, $user); // Implement placeOrder method in ShopModel
+		$this->model->placeOrder($_SESSION['user_id'], $_SESSION['user']); // Implement placeOrder method in ShopModel
 	}
 
 	private function handleClearCart() {

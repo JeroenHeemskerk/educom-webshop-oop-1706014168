@@ -45,15 +45,17 @@ class ShopModel extends pageModel {
     }
 
     public function placeOrder($userId, $user) {
-        if (!empty($this->cart)) {
-            foreach ($this->cart as $cartItem) {
+        if (!empty($_SESSION['cart'])) {
+            foreach ($_SESSION['cart'] as $cartItem) {
                 $itemId = $cartItem['itemId'];
                 $amount = $cartItem['amount'];
-                $this->insertIntoOrdersTable($this->connection, $itemId, $user, $userId, $amount);
+                $userId = $_SESSION['user_id'];
+                $user = $_SESSION['user'];
+                insert_into_orders_table($this->connection, $itemId, $user, $userId, $amount);
             }
 
             //Clearing the cart after placing the order
-            $this->cart = [];
+            unset($_SESSION['cart']);
             echo "Order placed successfully!";
         } else {
             echo "Your cart is empty. Add items before placing an order.";
