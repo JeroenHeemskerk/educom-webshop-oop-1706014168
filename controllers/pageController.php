@@ -18,13 +18,6 @@ class pageController { //assumption: are not in the hierarchy of inheritance, so
 	
 	private function getRequest() {
 		$this->model->getRequestedPage();
-		var_dump($_POST);
-		echo "<br>user:";
-		var_dump($_SESSION['user']); //null now
-		echo "<br>userId:";
-		var_dump($_SESSION['user_id']);
-		echo "<br>cart session:";
-		var_dump($_SESSION['cart']);
 	}
 	
 	//Business flow code
