@@ -79,6 +79,7 @@ class WebshopDoc extends FormsDoc {
 				echo '<td>' . $cartItem['amount'] . '</td>';
 				echo '</tr>';
 			}
+			echo '<td><button type="submit" class="submit" name="clearCart">Clear Cart</button></td>';
 	
 			echo '</table>';
 		} else {

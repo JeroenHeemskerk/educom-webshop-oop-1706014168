@@ -36,7 +36,7 @@ class ShopModel extends pageModel {
             'userId' => $userId, 
             'itemId' => $itemId, 
             'amount' => $amount, 
-            'item_name' => implode(" ",$itemDetails)
+            'item_name' => implode(" ",$itemDetails) //it had previously been returned as an array
         ); 
     }
 

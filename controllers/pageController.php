@@ -66,6 +66,9 @@ class pageController { //assumption: are not in the hierarchy of inheritance, so
 				if (isset($_POST['placeOrder'])) {
 					$this->handlePlaceOrder();
 				}
+				if (isset($_POST['clearCart'])) {
+					$this->handleClearCart();
+				}
 
 				include_once "./models/ShopModel.php";
 				$this->model = new ShopModel($this->model);
@@ -93,8 +96,19 @@ class pageController { //assumption: are not in the hierarchy of inheritance, so
 	private function handlePlaceOrder() {
 		include_once "./models/ShopModel.php";
 		$this->model = new ShopModel($this->model);
-		$this->model->placeOrder(); // Implement placeOrder method in ShopModel
+		$this->model->placeOrder($userId, $user); // Implement placeOrder method in ShopModel
 	}
+
+	private function handleClearCart() {
+		echo "Clear Cart function called.";
+    if (isset($_SESSION['cart']) && is_array($_SESSION['cart'])) {
+        //Clear the cart session
+        $_SESSION['cart'] = [];
+        echo "Cart cleared successfully!";
+    } else {
+        echo "Your cart is already empty.";
+    }
+}
 	
 	//to presentation layer
 	
@@ -134,6 +148,5 @@ class pageController { //assumption: are not in the hierarchy of inheritance, so
 		$page->show();
 	}
 }
-
 
 ?>
