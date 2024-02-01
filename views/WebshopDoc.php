@@ -13,9 +13,21 @@ class WebshopDoc extends FormsDoc {
 	}
 
 	protected function showContent() {
+		$this->show_logout();
 		$this->show_products($this->model->items);
 		$this->show_cart();
 		$this->show_orders($this->model->orders);
+	}
+
+	private function show_logout() {
+		if (isset($_SESSION['user'])) { 
+			echo '<form method="post">';
+			echo '<input type="hidden" id="page" name="page" value="home">';
+			echo '<td><button type="submit" class="submit" name="logout">Logout</button></td>';
+			echo '<form>';
+
+			//maybe better as menu item
+		}
 	}
 
 	private function show_products($items) { 
@@ -61,6 +73,7 @@ class WebshopDoc extends FormsDoc {
 
 	private function show_cart() {
 		if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
+			echo '<form method="post">';
 			echo '<h3>Shopping Cart:</h3>';
 			echo '<table>';
 			echo '<tr>
@@ -78,9 +91,11 @@ class WebshopDoc extends FormsDoc {
 				echo '<td>' . $cartItem['amount'] . '</td>';
 				echo '</tr>';
 			}
+			echo '<input type="hidden" id="page" name="page" value="browse_shop">';
 			echo '<td><button type="submit" class="submit" name="clearCart">Clear Cart</button></td>';
 	
 			echo '</table>';
+			echo '</form>';
 		} else {
 			echo 'Your cart is empty.';
 		}
@@ -108,8 +123,7 @@ class WebshopDoc extends FormsDoc {
 		} else {
 			echo 'cart is empty';
 		}
-}
-
+	}
 }
 
 

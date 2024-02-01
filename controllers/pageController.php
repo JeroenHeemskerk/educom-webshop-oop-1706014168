@@ -18,8 +18,15 @@ class pageController { //assumption: are not in the hierarchy of inheritance, so
 	
 	private function getRequest() {
 		$this->model->getRequestedPage();
+
+		echo "user session:<br>";
+		var_dump($_SESSION['user']);
+		echo "<br>userid session:<br>";
 		var_dump($_SESSION['user_id']);
+		echo "<br>cart session:<br>";
 		var_dump($_SESSION['cart']);
+		echo "<br><br><br>";
+		var_dump($_POST);
 	}
 	
 	//Business flow code
@@ -64,6 +71,11 @@ class pageController { //assumption: are not in the hierarchy of inheritance, so
 						$amount = $_POST['amount'][$itemId];
 						$this->handleAddToCart($itemId, $amount);
 					}
+					
+					
+					if (isset($_POST['logout'])) {
+						$this->handleLogout();
+					}
 
 					if (isset($_POST['placeOrder'])) {
 						$this->handlePlaceOrder();
@@ -73,11 +85,14 @@ class pageController { //assumption: are not in the hierarchy of inheritance, so
 					}
 				}
 
+				//need to make this conditional on the user being logged in
 				include_once "./models/ShopModel.php";
 				$this->model = new ShopModel($this->model);
 				$this->model->prepareWebshopData();
 				$this->model->prepareOrderData();
 				break;
+
+
 		}
 	}
 
@@ -98,18 +113,28 @@ class pageController { //assumption: are not in the hierarchy of inheritance, so
 
 	private function handleClearCart() {
 		echo "Clear Cart function called.";
-    if (isset($_SESSION['cart'])) {
-        //Clear the cart session
-        unset($_SESSION['cart']);
-        echo "Cart cleared successfully!";
-    } else {
-        echo "Your cart is already empty.";
-    }
-}
+		if (isset($_SESSION['cart'])) {
+			//Clear the cart session
+			unset($_SESSION['cart']);
+			echo "Cart cleared successfully!";
+		} else {
+			echo "Your cart is already empty.";
+		}
+	}
+
+	private function handleLogout() {
+		echo "logging out user";
+		unset($_SESSION['user']);
+		unset($_SESSION['user_id']);
+	}
 	
 	//to presentation layer
+
+	//change this so that when if(!empty($_SESSION['user'])) - it doesnt show login/register but logout/cart
+
 	
-	private function showResponse() { //change this so that when if(!empty($_SESSION['user'])) - it doesnt show login/register but logout/cart
+	
+	private function showResponse() {
 		$this->model->createMenu();
 	
 		switch($this->model->page) {
@@ -124,7 +149,6 @@ class pageController { //assumption: are not in the hierarchy of inheritance, so
 			case 'cart':
 				include_once  "./views/ShoppingCartDoc.php";
 				$page = new ShoppingCartDoc($this->model);
-
             case 'login':
 				include_once "./views/LoginForm.php";
                 $page = new LoginForm($this->model);
