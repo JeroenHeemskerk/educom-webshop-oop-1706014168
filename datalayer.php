@@ -131,7 +131,8 @@ function add_to_cart($itemId, $userId, $amount) {
 }
 
 function get_order_history($connection) { //used to fetch $user and $userid arguments too
-    $userId = $_SESSION['user_id'];
+    if(isset($_SESSION['user'])) {
+        $userId = $_SESSION['user_id'];
 
 		// Query to get items in the user's cart
         $query = "SELECT orders.id, items.item_name, orders.user_id, orders.amount FROM orders
@@ -149,6 +150,9 @@ function get_order_history($connection) { //used to fetch $user and $userid argu
 		} else {
 			return $orderHistory;
 		}
+    } else {
+        echo "you're not logged in!"; 
+    }
 }
 
 function place_order($userId, $user, $connection) {

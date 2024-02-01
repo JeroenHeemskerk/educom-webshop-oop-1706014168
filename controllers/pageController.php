@@ -147,12 +147,16 @@ class pageController { //assumption: are not in the hierarchy of inheritance, so
                 $page = new WebshopDoc($this->model);
                 break;
 			case 'cart':
-				include_once  "./views/ShoppingCartDoc.php";
+				include_once "./views/ShoppingCartDoc.php";
 				$page = new ShoppingCartDoc($this->model);
             case 'login':
 				include_once "./views/LoginForm.php";
                 $page = new LoginForm($this->model);
                 break;
+			case 'logout':
+				include_once "./views/Logout.php";
+				$page = new LogoutForm($this->model);
+				break;
             case 'register':
 				include_once "./views/RegistrationForm.php";
                 $page = new RegistrationForm($this->model);

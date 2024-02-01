@@ -43,14 +43,18 @@ class BasicDoc extends HtmlDoc {
 	}
 	
 	private function showMenu() {
-		echo '<nav>';
-		echo '<a href="index.php?page=home">Home</a>';
-		echo '<a href="index.php?page=browse_shop">Browse shop</a>';
-		echo '<a href="index.php?page=login">Login</a>';
-		echo '<a href="index.php?page=register">Register</a>';
-		echo '<a href="index.php?page=contact">Contact</a>';
-		echo '<a class="special">The webshop where you can buy anything you want</a>';
-		echo '</nav>';
+			echo '<nav>';
+			echo '<a href="index.php?page=home">Home</a>';
+		if (isset($_SESSION['user'])) {
+			echo '<a href="index.php?page=browse_shop">Browse shop</a>';
+			echo '<a href="index.php?page=logout">Logout</a>';
+		} else {
+			echo '<a href="index.php?page=login">Login</a>';
+			echo '<a href="index.php?page=register">Register</a>';
+		}
+			echo '<a href="index.php?page=contact">Contact</a>';
+			echo '<a class="special">The webshop where you can buy anything you want</a>';
+			echo '</nav>';
 	}
 	
 	protected function showContent() {
