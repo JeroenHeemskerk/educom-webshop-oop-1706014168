@@ -25,7 +25,7 @@ class pageController { //assumption: are not in the hierarchy of inheritance, so
 		var_dump($_SESSION['user_id']);
 		echo "<br>cart session:<br>";
 		var_dump($_SESSION['cart']);
-		echo "<br><br><br>";
+		echo "<br><br><br>POST: ";
 		var_dump($_POST);
 	}
 	
@@ -33,7 +33,7 @@ class pageController { //assumption: are not in the hierarchy of inheritance, so
 	
 	private function processRequest() {
 		switch($this->model->page) {
-			case "login";
+			case "login":
 				include_once "./models/UserModel.php";
 				$this->model = new UserModel ($this->model);
 				$this->model->validateLogin();
@@ -44,7 +44,15 @@ class pageController { //assumption: are not in the hierarchy of inheritance, so
 					$_SESSION['user_id'] = $this->userId;
 				}
 				break;
-			case "register";
+			case "logout":
+				include_once "./models/UserModel.php";
+				$this->model = new UserModel ($this->model);
+					if (isset($_POST['logout'])) {
+						$this->handleLogout();
+						$this->model->setPage("login");
+					}
+				break;
+			case "register":
 				include_once "./models/UserModel.php";
 				$this->model = new UserModel ($this->model);
 				$this->model->validateRegistration();
@@ -53,7 +61,7 @@ class pageController { //assumption: are not in the hierarchy of inheritance, so
 					$this->model->setPage("login");
 				}
 				break;
-			case "contact";
+			case "contact":
 				include_once "./models/UserModel.php";
 				$this->model = new UserModel($this->model);
 				$this->model->validateMessage(); //non-existent and unnecessary
@@ -62,19 +70,13 @@ class pageController { //assumption: are not in the hierarchy of inheritance, so
 					$this->model->setPage("contact");
 				}
 				break;
-			case "browse_shop";
+			case "browse_shop":
 				//to handle form submissions:
-				if ($_SERVER["REQUEST_METHOD"] === "POST") {
 					if (isset($_POST['addToCart'])) {
 						echo "it is working";
 						$itemId = $_POST['addToCart'];
 						$amount = $_POST['amount'][$itemId];
 						$this->handleAddToCart($itemId, $amount);
-					}
-					
-					
-					if (isset($_POST['logout'])) {
-						$this->handleLogout();
 					}
 
 					if (isset($_POST['placeOrder'])) {
@@ -83,7 +85,6 @@ class pageController { //assumption: are not in the hierarchy of inheritance, so
 					if (isset($_POST['clearCart'])) { //this button does not work
 						$this->handleClearCart();
 					}
-				}
 
 				//need to make this conditional on the user being logged in
 				include_once "./models/ShopModel.php";
@@ -130,8 +131,6 @@ class pageController { //assumption: are not in the hierarchy of inheritance, so
 	
 	//to presentation layer
 
-	//change this so that when if(!empty($_SESSION['user'])) - it doesnt show login/register but logout/cart
-
 	
 	
 	private function showResponse() {
@@ -154,7 +153,7 @@ class pageController { //assumption: are not in the hierarchy of inheritance, so
                 $page = new LoginForm($this->model);
                 break;
 			case 'logout':
-				include_once "./views/Logout.php";
+				include_once "./views/LogoutForm.php";
 				$page = new LogoutForm($this->model);
 				break;
             case 'register':

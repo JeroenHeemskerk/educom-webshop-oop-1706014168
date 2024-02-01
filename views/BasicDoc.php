@@ -56,6 +56,7 @@ class BasicDoc extends HtmlDoc {
 			echo '<a class="special">The webshop where you can buy anything you want</a>';
 			echo '</nav>';
 	}
+	//can make this nicer too by putting a full nav bar in both the if and else statements
 	
 	protected function showContent() {
 		echo "inhoud van de basic pagina";
