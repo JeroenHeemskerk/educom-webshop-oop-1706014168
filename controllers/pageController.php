@@ -47,10 +47,8 @@ class pageController { //assumption: are not in the hierarchy of inheritance, so
 			case "logout":
 				include_once "./models/UserModel.php";
 				$this->model = new UserModel ($this->model);
-					if (isset($_POST['logout'])) {
 						$this->handleLogout();
-						$this->model->setPage("login");
-					}
+						$this->model->setPage("home");
 				break;
 			case "register":
 				include_once "./models/UserModel.php";
