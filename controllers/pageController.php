@@ -116,6 +116,7 @@ class pageController { //assumption: are not in the hierarchy of inheritance, so
 		echo "logging out user";
 		unset($_SESSION['user']);
 		unset($_SESSION['user_id']);
+		unset($_SESSION['cart']);
 	}
 	
 	//to presentation layer

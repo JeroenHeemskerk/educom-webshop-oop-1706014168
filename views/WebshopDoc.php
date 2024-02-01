@@ -13,21 +13,9 @@ class WebshopDoc extends FormsDoc {
 	}
 
 	protected function showContent() {
-		$this->show_logout();
 		$this->show_products($this->model->items);
 		$this->show_cart();
 		$this->show_orders($this->model->orders);
-	}
-
-	private function show_logout() {
-		if (isset($_SESSION['user'])) { 
-			echo '<form method="post">';
-			echo '<input type="hidden" id="page" name="page" value="home">';
-			echo '<td><button type="submit" class="submit" name="logout">Logout</button></td>';
-			echo '<form>';
-
-			//maybe better as menu item
-		}
 	}
 
 	private function show_products($items) { 
