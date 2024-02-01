@@ -68,7 +68,7 @@ class pageController { //assumption: are not in the hierarchy of inheritance, so
 					if (isset($_POST['placeOrder'])) {
 						$this->handlePlaceOrder();
 					}
-					if (isset($_POST['clearCart'])) {
+					if (isset($_POST['clearCart'])) { //this button does not work
 						$this->handleClearCart();
 					}
 				}
@@ -98,9 +98,9 @@ class pageController { //assumption: are not in the hierarchy of inheritance, so
 
 	private function handleClearCart() {
 		echo "Clear Cart function called.";
-    if (isset($_SESSION['cart']) && is_array($_SESSION['cart'])) {
+    if (isset($_SESSION['cart'])) {
         //Clear the cart session
-        $_SESSION['cart'] = [];
+        unset($_SESSION['cart']);
         echo "Cart cleared successfully!";
     } else {
         echo "Your cart is already empty.";
@@ -121,7 +121,7 @@ class pageController { //assumption: are not in the hierarchy of inheritance, so
 				include_once "./views/WebshopDoc.php";
                 $page = new WebshopDoc($this->model);
                 break;
-			case 'cart': //NEW CART PAGE
+			case 'cart':
 				include_once  "./views/ShoppingCartDoc.php";
 				$page = new ShoppingCartDoc($this->model);
 
