@@ -46,7 +46,9 @@ class BasicDoc extends HtmlDoc {
 			echo '<nav>';
 			echo '<a href="index.php?page=home">Home</a>';
 		if (isset($_SESSION['user'])) {
-			echo '<a href="index.php?page=browse_shop">Browse shop</a>';
+			echo '<a href="index.php?page=Shop">Shop</a>';
+			echo '<a href="index.php?page=mycart">My cart</a>';
+			echo '<a href="index.php?page=orderhistory">Order history</a>';
 			echo '<a href="index.php?page=logout">Logout</a>';
 		} else {
 			echo '<a href="index.php?page=login">Login</a>';

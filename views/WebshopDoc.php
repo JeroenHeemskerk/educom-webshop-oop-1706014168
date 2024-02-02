@@ -14,8 +14,8 @@ class WebshopDoc extends FormsDoc {
 
 	protected function showContent() {
 		$this->show_products($this->model->items);
-		$this->show_cart();
-		$this->show_orders($this->model->orders);
+		//$this->show_cart();
+		//$this->show_orders($this->model->orders);
 	}
 
 	private function show_products($items) { 
@@ -37,7 +37,7 @@ class WebshopDoc extends FormsDoc {
 			echo '<td>' . $item['item_name'] . '</td>';
 			echo '<td>' . $item['price'] . '</td>';
 			echo '<td>';
-			echo '<input type="hidden" id="page" name="page" value="browse_shop">';
+			echo '<input type="hidden" id="page" name="page" value="Shop">';
 			echo '<input type="number" name="amount[' . $item['id'] . ']" min="1" value="1" required>';
 			echo '</td>';
 			echo '<td>';
@@ -50,67 +50,9 @@ class WebshopDoc extends FormsDoc {
 			echo '</td>';
 			echo '</tr>';
 		}
-		
-		echo '<tr>';
-		echo '<td><button type="submit" class="submit" name="placeOrder">Place Order</button></td>';
-		echo '</tr>';
 	
 		echo '</table>';
 		echo '</form>';
-	}
-
-	private function show_cart() {
-		if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
-			echo '<form method="post">';
-			echo '<h3>Shopping Cart:</h3>';
-			echo '<table>';
-			echo '<tr>
-					<th>Item Name</th>
-					<th>Item ID</th>
-					<th>Amount</th>
-				  </tr>';
-	
-			foreach ($_SESSION['cart'] as $cartItem) {
-				$itemId = $cartItem['itemId'];
-
-				echo '<tr>';
-				echo '<td>' . $cartItem['item_name']	. '</td>';
-				echo '<td>' . $itemId . '</td>';
-				echo '<td>' . $cartItem['amount'] . '</td>';
-				echo '</tr>';
-			}
-			echo '<input type="hidden" id="page" name="page" value="browse_shop">';
-			echo '<td><button type="submit" class="submit" name="clearCart">Clear Cart</button></td>';
-	
-			echo '</table>';
-			echo '</form>';
-		} else {
-			echo 'Your cart is empty.';
-		}
-	}
-
-	private function show_orders($orders) {
-		if (!empty($orders)) {
-			echo '<form method="post">';
-			echo '<table>';
-			echo '<tr>
-					<th>User Id</th>
-					<th>Item Id</th>
-					<th>Amount</th>
-				</tr>';
-			
-			foreach($orders as $order) {
-				echo '<tr>';
-				echo '<td>' . $order['user_id'] . '</td>';
-				echo '<td>' . $order['item_name'] . '</td>';
-				echo '<td>' . $order['amount'] . '</td>';
-				echo '</tr>';
-			}	
-			echo '</table>';
-			echo '</form>';
-		} else {
-			echo 'cart is empty';
-		}
 	}
 }
 

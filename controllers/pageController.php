@@ -59,7 +59,7 @@ class pageController { //assumption: are not in the hierarchy of inheritance, so
 					$this->model->setPage("contact");
 				}
 				break;
-			case "browse_shop":
+			case "Shop":
 				//to handle form submissions:
 					if (isset($_POST['addToCart'])) {
 						echo "it is working";
@@ -67,22 +67,28 @@ class pageController { //assumption: are not in the hierarchy of inheritance, so
 						$amount = $_POST['amount'][$itemId];
 						$this->handleAddToCart($itemId, $amount);
 					}
-
-					if (isset($_POST['placeOrder'])) {
-						$this->handlePlaceOrder();
-					}
-					if (isset($_POST['clearCart'])) { //this button does not work
-						$this->handleClearCart();
-					}
-
-				//need to make this conditional on the user being logged in
 				include_once "./models/ShopModel.php";
 				$this->model = new ShopModel($this->model);
 				$this->model->prepareWebshopData();
 				$this->model->prepareOrderData();
 				break;
+			case "mycart":
+				include_once "./models/ShopModel.php";
+				$this->model = new ShopModel($this->model);
+				$this->model->prepareWebshopData();
 
-
+				if (isset($_POST['placeOrder'])) {
+					$this->handlePlaceOrder();
+				}
+				if (isset($_POST['clearCart'])) { //this button does not work
+					$this->handleClearCart();
+				}
+				break;
+			case "orderhistory":
+				include_once "./models/ShopModel.php";
+				$this->model = new ShopModel($this->model);
+				$this->model->prepareOrderData();
+				break;
 		}
 	}
 
@@ -131,13 +137,18 @@ class pageController { //assumption: are not in the hierarchy of inheritance, so
 				require_once("views/homeDoc.php");
 				$page = new HomeDoc($this->model);
 				break;
-			case 'browse_shop':
+			case 'Shop':
 				include_once "./views/WebshopDoc.php";
                 $page = new WebshopDoc($this->model);
                 break;
-			case 'cart':
+			case 'mycart':
 				include_once "./views/ShoppingCartDoc.php";
 				$page = new ShoppingCartDoc($this->model);
+				break;
+			case 'orderhistory':
+				include_once "./views/OrderhistoryDoc.php";
+				$page = new OrderhistoryDoc($this->model);
+				break;
             case 'login':
 				include_once "./views/LoginForm.php";
                 $page = new LoginForm($this->model);

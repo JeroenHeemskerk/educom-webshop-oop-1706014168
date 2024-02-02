@@ -1,13 +1,21 @@
 <?php
 
-//should retrieve the users shoppingcart from $_SESSION['cart']
+	require_once "FormsDoc.php";
 
-	require_once "./views/ProductDoc.php";
-
-class ShoppingCartDoc extends ProductDoc {
+//used to inherit from productsdoc, dont know what the distinction was for
+class ShoppingCartDoc extends FormsDoc {
 	
-	function show_cart($connection) {
+	protected function showPageHeader() {
+		echo '<h1>Shopping cart: all details here</h1>';
+	}
+
+	protected function showContent() {
+		$this->show_cart();
+	}
+
+	private function show_cart() {
 		if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
+			echo '<form method="post">';
 			echo '<h3>Shopping Cart:</h3>';
 			echo '<table>';
 			echo '<tr>
@@ -18,16 +26,22 @@ class ShoppingCartDoc extends ProductDoc {
 	
 			foreach ($_SESSION['cart'] as $cartItem) {
 				$itemId = $cartItem['itemId'];
-				$itemDetails = get_specific_item_details($this->connection, $itemId); // I think I should improve the structure
-				
+
 				echo '<tr>';
-				echo '<td>' . $itemDetails['item_name']	. '</td>';
+				echo '<td>' . $cartItem['item_name']	. '</td>';
 				echo '<td>' . $itemId . '</td>';
 				echo '<td>' . $cartItem['amount'] . '</td>';
 				echo '</tr>';
 			}
+			echo '<input type="hidden" id="page" name="page" value="mycart">';
+			echo '<td><button type="submit" class="submit" name="clearCart">Clear Cart</button></td>';
+
+			echo '<tr>';
+			echo '<td><button type="submit" class="submit" name="placeOrder">Place Order</button></td>';
+			echo '</tr>';
 	
 			echo '</table>';
+			echo '</form>';
 		} else {
 			echo 'Your cart is empty.';
 		}

@@ -15,7 +15,7 @@ class PageModel {
 	
 	public function __construct($copy) {
 		if (empty($copy)) {
-			// first instance pagemodel
+			//First instance pagemodel
 			$this->sessionManager = new SessionManager();
 			$this->connection = connect_to_database();
 		} else {
@@ -33,7 +33,7 @@ class PageModel {
 		$this->isPost = ($_SERVER['REQUEST_METHOD'] == 'POST');
 		
 		if ($this->isPost) {
-			$this->setPage($this->getPostVar("page", "home")); //static method
+			$this->setPage($this->getPostVar("page", "home")); 
 		} else {
 			$this->setPage($this->getUrlVar("page","home"));
 		}
