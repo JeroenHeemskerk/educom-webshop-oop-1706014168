@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 class Crud {
 
@@ -8,31 +8,57 @@ class Crud {
     private $pwd = "";
     private $dbName = "shops";
 
-    public $table;
-    public $data;
+    protected $pdo;
 
-    protected function connect() {
-        $dsn = 'mysql:host=' . $this->host . ';dbname=' . $this->dbName;
-        $pdo = new PDO($dsn, $this->user, $this->pwd);
-        $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC); //fetches associative array
-        return $pdo;
+    public function __construct() {
+        $this->connect();
     }
 
-    public function runSelectQuery() {
-		$this->data = $data;
-		$this->table = $table; 
-		$query = "SELECT $this->data FROM $this->table";
+    //Use PDO object to access database
+    protected function connect() {
+        try {
+            $dsn = 'mysql:host=' . $this->host . ';dbname=' . $this->dbName;
+            $this->pdo = new PDO($dsn, $this->user, $this->pwd);
+            $this->pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC); //fetches associative array
+            return $this->pdo;
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+        }
+    }
+
+    public function runSelectQuery($data, $table) {
+        try {
+            $query = "SELECT $data FROM $table";
+            $stmt = $this->pdo->query($query);
+            return $stmt->fetchAll(); //Fetching all rows
+        } catch (PDOException $e) {
+           echo "Error: " . $e->getMessage();
+           return false;
+        }
     }
 
     public function createRow($sql, $params) {
+        //Prepare statement
+        try {
+        $stmt = $this->pdo->prepare($sql);
 
+        //Execute statement with parameters
+        $stmt->execute($params);
 
+        //Retrieve ID last inserted row
+        $rowId = $this->pdo->lastInsertId();
+        
+        return $rowId;
 
-        $rowId = $row['id'];
-        return $row['id'];
+        } catch(PDOException $e) {
+            //Handle errors
+            echo "Error: " . $e->getMessage();
+            return false;
+        }
     }
 
     public function readOneRow($sql, $params) {
+
 
     }
 
@@ -49,29 +75,29 @@ class Crud {
     }
 }
 
+$crud = new Crud();
 
+$data = 'username, password_hashed';
+$table = 'username';
 
-//One of my functions currently using prepared statements:
-function add_user_database_pdo($connection, $user, $hashedPassword) {
-    //Insert user data into database
-    $insertQuery = "INSERT INTO username (username, password_hashed) VALUES (?, ?)";
-    $stmt = $connection->prepare($insertQuery);
-    
-    if (!$stmt) {
-        //Handles the case where prepare() fails
-        echo "Error: " . $connection->error; // Output the error message
-        return false;
-    }
-    
-    //Bind parameters and execute query
-    $stmt->bind_param("ss", $user, $hashedPassword);
-    $stmt->execute();
-    
-    if ($stmt->affected_rows > 0) {
-        return true; //user insertion succesful
-    } else {
-        return false; //failed
-    }
-    }
+$result = $crud->runSelectQuery($data, $table);
+
+if ($result !== false) {
+    var_dump($result);
+} else {
+    echo "an error occurred while executing query";
+}
+
+$sql = "INSERT INTO username (username, password_hashed) VALUES (?, ?)";
+$params = ["testingCRUD", "CRUD"];
+
+$rowId = $crud->createRow($sql, $params);
+
+if($rowId !== false) {
+    echo "Row inserted succesfully. RowId: $rowId";
+} else {
+    echo "unsuccessful";
+}
+
 
 ?>
