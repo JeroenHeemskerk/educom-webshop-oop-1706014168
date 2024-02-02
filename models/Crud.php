@@ -58,7 +58,18 @@ class Crud {
     }
 
     public function readOneRow($sql, $params) {
+        try {
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute($params);
+            $row = $stmt->fetch(PDO::FETCH_OBJ); //fetching as object
 
+            return $row;
+
+        } catch(PDOException $e) {
+            //ERROR handling
+            echo "Error: " . $e->getMessage();
+            return false;
+        }
 
     }
 
@@ -77,6 +88,7 @@ class Crud {
 
 $crud = new Crud();
 
+//select table
 $data = 'username, password_hashed';
 $table = 'username';
 
@@ -88,15 +100,30 @@ if ($result !== false) {
     echo "an error occurred while executing query";
 }
 
+//create a row
 $sql = "INSERT INTO username (username, password_hashed) VALUES (?, ?)";
 $params = ["testingCRUD", "CRUD"];
 
 $rowId = $crud->createRow($sql, $params);
 
 if($rowId !== false) {
-    echo "Row inserted succesfully. RowId: $rowId";
+    echo "Row inserted succesfully. RowId: $rowId"; //rowid returned
 } else {
     echo "unsuccessful";
+}
+
+echo "<br><br>";
+
+//read one row and return object
+$sql = "SELECT * FROM username WHERE id = ?";
+$params = [1]; // Example parameter
+
+$row = $crud->readOneRow($sql, $params);
+
+if($row !== false) {
+    var_dump($row); // Displaying the fetched row as an object
+} else {
+    echo "Unable to fetch the row.";
 }
 
 
