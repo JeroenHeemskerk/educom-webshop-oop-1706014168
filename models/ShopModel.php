@@ -9,6 +9,7 @@ class ShopModel extends pageModel {
 
     public function __construct($pageModel) {
 		PARENT:: __construct($pageModel);
+
 	}
 
     public function prepareWebshopData() {
@@ -45,7 +46,8 @@ class ShopModel extends pageModel {
     }
 
     public function placeOrder($userId, $user) {
-        if (!empty($_SESSION['cart'])) {
+        $cart = $this->sessionManager->getCart();
+        if (!empty($cart)) {
             foreach ($_SESSION['cart'] as $cartItem) {
                 $itemId = $cartItem['itemId'];
                 $amount = $cartItem['amount'];
@@ -55,7 +57,7 @@ class ShopModel extends pageModel {
             }
 
             //Clearing the cart after placing the order
-            unset($_SESSION['cart']);
+            $this->sessionManager->clearCart();
             echo "Order placed successfully!";
         } else {
             echo "Your cart is empty. Add items before placing an order.";

@@ -11,9 +11,14 @@ class pageController { //assumption: are not in the hierarchy of inheritance, so
 	}
 	
 	public function handleRequest() {
+		$this->accessSessionManager();
 		$this->getRequest();
 		$this->processRequest();
 		$this->showResponse();
+	}
+
+	private function accessSessionManager() {
+		$this->sessionManager = $this->model->getSessionManager();
 	}
 	
 	private function getRequest() {
@@ -108,21 +113,11 @@ class pageController { //assumption: are not in the hierarchy of inheritance, so
 	}
 
 	private function handleClearCart() {
-		echo "Clear Cart function called.";
-		if (isset($_SESSION['cart'])) {
-			//Clear the cart session
-			unset($_SESSION['cart']);
-			echo "Cart cleared successfully!";
-		} else {
-			echo "Your cart is already empty.";
-		}
+			$this->sessionManager->clearCart();
 	}
 
 	private function handleLogout() {
-		echo "logging out user";
-		unset($_SESSION['user']);
-		unset($_SESSION['user_id']);
-		unset($_SESSION['cart']);
+			$this->sessionManager->logoutUser();
 	}
 	
 	//to presentation layer
