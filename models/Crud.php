@@ -74,7 +74,17 @@ class Crud {
     }
 
     public function readMultipleRows($sql, $params) {
+        try {
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute($params);
+            $rows = $stmt->fetchAll(PDO::FETCH_ASSOC); //fetches all rows as associative array
 
+            return $rows;
+
+        } catch(PDOException $e) {
+            echo "Error: " . $e->getMessage();
+            return false;
+        }
     }
 
     public function updateRow($sql, $params) {
@@ -101,7 +111,9 @@ if ($result !== false) {
 }
 
 //create a row
-$sql = "INSERT INTO username (username, password_hashed) VALUES (?, ?)";
+$table = "username";
+$column = "username, password_hashed";
+$sql = "INSERT INTO $table ($column) VALUES (?, ?)";
 $params = ["testingCRUD", "CRUD"];
 
 $rowId = $crud->createRow($sql, $params);
@@ -115,15 +127,36 @@ if($rowId !== false) {
 echo "<br><br>";
 
 //read one row and return object
-$sql = "SELECT * FROM username WHERE id = ?";
-$params = [1]; // Example parameter
+$table = "username";
+$column = "id";
+
+
+$sql = "SELECT * FROM $table WHERE $column = ?";
+$params = [1]; // Example parameter id = 1
 
 $row = $crud->readOneRow($sql, $params);
 
-if($row !== false) {
-    var_dump($row); // Displaying the fetched row as an object
+if($row) {
+    var_dump($row); //Displaying the fetched row as an object
 } else {
     echo "Unable to fetch the row.";
+}
+
+//read multiple rows and return array of objects or classes
+$table = "orders";
+$column = "amount";
+$sql = "SELECT * FROM $table WHERE $column = ?"; //returns all orders where the amount is 3
+$params = ["3"];
+
+$rows = $crud->readMultipleRows($sql, $params);
+
+if ($rows) {
+    foreach ($rows as $row) {
+        var_dump($row);
+        echo "<br>";
+    }
+} else {
+    echo "No such rows detected.";
 }
 
 
