@@ -1,17 +1,16 @@
 <?php
 
 require_once "./controllers/PageController.php";
-//require_once "./models/CrudFactory.php";
+require_once "./models/CrudFactory.php";
+require_once "./models/ModelFactory.php";
 
-/*
-work in progress 
+$crudFactory = new CrudFactory();
+$userCrud = $crudFactory->createCrud('user');
 
-$crud = new Crud();
-$crudFactory = new CrudFactory($crud);
-$modelFactory => new ModelFactory(crudFactory);
-*/
+$modelFactory = new ModelFactory($crudFactory);
 
-$pageController = new PageController();
-$pageController->handleRequest(); 
+$pageController = new PageController($modelFactory); //passing modelFactory to PageController
+$pageController->handleRequest();
+
 
 ?>

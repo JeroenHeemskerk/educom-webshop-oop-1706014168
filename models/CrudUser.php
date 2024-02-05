@@ -8,7 +8,7 @@ class UserCrud {
 
     function __construct(Crud $crud, $table = "username") { //use dependency injection
         $this->crud = $crud;
-        $this->table = $table
+        $this->table = $table;
     }
 
     function createUser($username, $password) { //use dependency injection, etc.
@@ -22,10 +22,6 @@ class UserCrud {
         $params = [$username];
         return $this->crud->readOneRow($sql, $params);
     }
-
-    //I do not think the above method is necessary, 
-    //I think the below method handles all necessary 
-    //operations related to retrieving userdata
 
     function retrieveUserData($column, $username) {
         $sql = "SELECT $column FROM $this->table WHERE username = ?";

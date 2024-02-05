@@ -2,14 +2,17 @@
 
 require_once "./models/PageModel.php";
 require_once "./models/CrudUser.php";
+require_once "./models/ModelFactory.php";
 
 class pageController { //assumption: are not in the hierarchy of inheritance, so all functions public
 	private $model;
 	private $db;
 	private $userCrud;
+	private $modelFactory; //to store modelFactory instance
 	
-	public function __construct() {
-		$this->model = new PageModel(NULL);
+	public function __construct(ModelFactory $modelFactory) {
+		$this->modelFactory = $modelFactory;
+		$this->model = $this->modelFactory->createModel('PageModel');
 		$this->userCrud = new UserCrud(new Crud());
 	}
 	
