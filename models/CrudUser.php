@@ -7,16 +7,32 @@ class UserCrud {
         $this->crud = $crud;
     }
 
-    function createUser(UserModel $user) { //use dependency injection, etc.
-        
+    function createUser($username, $password) { //use dependency injection, etc.
+        $table = "username";
+        $sql = "INSERT INTO $table (username, password_hashed) VALUES (?, ?)";
+        $params = [$username, $password];
+        return $this->crud->createRow($sql, $params);
     }
 
-    function readUserByEmail($email) {
-        //I dont use emails yet.
+    function readUserByUsername($username) {
+        $table = "username";
+        $sql = "SELECT * FROM $table WHERE username = ?";
+        $params = [$username];
+        return $this->crud->readOneRow($sql, $params);
     }
 
-    function updateUser(UserModel $user) {
+    function updateUser($userId, $newUsername) {
+        $table = "username";
+        $sql = "UPDATE $table SET username = ? WHERE id = ?";
+        $params = [$newUsername, $userId];
+        return $this->crud->updateRow($sql, $params);
+    }
 
+    public function deleteUser($userId) {
+        $table = "username";
+        $sql = "DELETE FROM $table WHERE id = ?";
+        $params = [$userId];
+        return $this->crud->deleteRow($sql, $params);
     }
 
 }
