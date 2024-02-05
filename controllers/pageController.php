@@ -1,13 +1,16 @@
 <?php
 
 require_once "./models/PageModel.php";
+require_once "./models/CrudUser.php";
 
 class pageController { //assumption: are not in the hierarchy of inheritance, so all functions public
 	private $model;
 	private $db;
+	private $userCrud;
 	
 	public function __construct() {
 		$this->model = new PageModel(NULL);
+		$this->userCrud = new UserCrud(new Crud());
 	}
 	
 	public function handleRequest() {
@@ -31,7 +34,7 @@ class pageController { //assumption: are not in the hierarchy of inheritance, so
 		switch($this->model->page) {
 			case "login":
 				include_once "./models/UserModel.php";
-				$this->model = new UserModel ($this->model);
+				$this->model = new UserModel ($this->model, $this->userCrud);
 				$this->model->validateLogin();
 				if($this->model->valid) {
 					$this->model->doLoginUser();
@@ -42,13 +45,13 @@ class pageController { //assumption: are not in the hierarchy of inheritance, so
 				break;
 			case "logout":
 				include_once "./models/UserModel.php";
-				$this->model = new UserModel ($this->model);
+				$this->model = new UserModel ($this->model, $this->userCrud);
 						$this->handleLogout();
 						$this->model->setPage("home");
 				break;
 			case "register":
 				include_once "./models/UserModel.php";
-				$this->model = new UserModel ($this->model);
+				$this->model = new UserModel ($this->model, $this->userCrud);
 				$this->model->validateRegistration();
 				if($this->model->valid) {
 					$this->model->saveUser();
@@ -57,7 +60,7 @@ class pageController { //assumption: are not in the hierarchy of inheritance, so
 				break;
 			case "contact":
 				include_once "./models/UserModel.php";
-				$this->model = new UserModel($this->model);
+				$this->model = new UserModel($this->model, $this->userCrud);
 				$this->model->validateMessage(); //non-existent and unnecessary
 				if($this->model->valid) {
 					$this->model->saveMessage();

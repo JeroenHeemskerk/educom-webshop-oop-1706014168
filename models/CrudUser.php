@@ -1,7 +1,9 @@
 <?php
 
+require_once "Crud.php";
+
 class UserCrud {
-    private $crud;
+    private $crud; //property storing instance of generic crud class
 
     function __construct(Crud $crud) { //use dependency injection
         $this->crud = $crud;
@@ -21,6 +23,25 @@ class UserCrud {
         return $this->crud->readOneRow($sql, $params);
     }
 
+    //I do not think the above method is necessary, 
+    //I think the below method handles all necessary 
+    //operations related to retrieving userdata
+
+    function retrieveUserData($column, $username) {
+        $table = "username";
+        $sql = "SELECT $column FROM $table WHERE username = ?";
+        $params = [$username];
+        $data = $this->crud->readOneRow($sql, $params);
+        return $data;
+    }
+
+    function getUserId($username) {
+        $table = "username";
+        $sql = "SELECT id From $table WHERE username = ?";
+        $params = [$username];
+        $userId = $this->crud->readOneRow($sql, $params);
+    }
+
     function updateUser($userId, $newUsername) {
         $table = "username";
         $sql = "UPDATE $table SET username = ? WHERE id = ?";
@@ -37,73 +58,22 @@ class UserCrud {
 
 }
 
+// Create an instance of the Crud class (assuming it's implemented elsewhere)
+$crud = new Crud(/* Pass any necessary parameters */);
 
-//I think the datalayer functions should be converted and written in here:
-
-function add_user_database_pdo($connection, $user, $hashedPassword) {
-    //Insert user data into database
-    $insertQuery = "INSERT INTO username (username, password_hashed) VALUES (?, ?)";
-    $stmt = $connection->prepare($insertQuery);
-    
-    if (!$stmt) {
-        // Handle the case where prepare() fails
-        echo "Error: " . $connection->error; // Output the error message
-        return false;
-    }
-    
-    //Bind parameters and execute query
-    $stmt->bind_param("ss", $user, $hashedPassword);
-    $stmt->execute();
-    
-    if ($stmt->affected_rows > 0) {
-        return true; //user insertion succesful
-    } else {
-        return false; //failed
-    }
-    }
-
-function retrieve_userdata($connection, $user) {
-
-        // Prevent mysql injections
-        $user = mysqli_real_escape_string($connection, $user);
-        
-        //Gets username from the 'username' table instead of ID
-        $query = "SELECT password_hashed FROM username WHERE username = '$user'";
-        $result = mysqli_query($connection, $query);
-        
-        if ($result && mysqli_num_rows($result) > 0) {
-            //Username exists, return array with password_hashed for verification
-            $userData = mysqli_fetch_assoc($result);
-            return $userData;
-        } else {
-            //Username does not exist, nothing to return
-            return null;
-        }	
-}
-
-function get_username_id($connection, $user) {
+	// Create an instance of the UserCrud class
+	$userCrud = new UserCrud($crud);
 	
-    //Sanitize user input 
-$user = mysqli_real_escape_string($connection, $user);
+	// Call the retrieveUserData() method with the specified parameters
+	$column = "password_hashed";
+	$username = "100";
+	$userData = $userCrud->retrieveUserData($column, $username);
+	
+	// Output the result
+	var_dump($userData);
 
-	//Gets username ID from the 'username' table
-    $query = "SELECT id FROM username WHERE username = '$user'";
-    $result = mysqli_query($connection, $query);
-	if (!$result) {
-        die("Database query failed.");  //improve error handling here
-    } 
 
-    if ($row = mysqli_fetch_assoc($result)) {
-        $userId = $row['id'];
-    } else {
-        //username not found
-        $userId = null;
-    }
-    // Free result set resleaset the memory used
-    mysqli_free_result($result);
-    
-    return $userId;
-}
+//I think the datalayer functions should be converted and written in here
 
 
 

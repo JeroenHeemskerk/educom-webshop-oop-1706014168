@@ -16,9 +16,12 @@ class UserModel extends pageModel {
 	public $valid = false;
 	public $comment = "";
 	public $commentEr = "";
+
+	private $userCrud; //property to store instance of UserCrud
 	
-	public function __construct($pageModel) {
-		PARENT:: __construct($pageModel);
+	public function __construct($pageModel, UserCrud $userCrud) {
+		PARENT:: __construct($pageModel); 
+		$this->UserCrud = $userCrud;
 	}
 	
 	public function validateLogin() {
@@ -94,7 +97,7 @@ class UserModel extends pageModel {
 	
 	public function authenticateUser() {
 			// Authenticate username
-		$userData = retrieve_userdata($this->connection, $this->user);
+		$userData = $this->userCrud->retrieveUserData("password_hashed", $this->user);
 
 		if ($userData !== null) {
 			// Username exists, now verify the password
@@ -123,7 +126,8 @@ class UserModel extends pageModel {
 	}
 
 	public function getUserId() {
-		$userId = get_username_id($this->connection, $_SESSION['user']);
+		//$userId = get_username_id($this->connection, $_SESSION['user']);
+		$userId = $this->userCrud->retrieveUserData("id", $_SESSION['user']);
 		return $userId;
 	}
 
@@ -134,9 +138,24 @@ class UserModel extends pageModel {
 
 	public function saveUser() {
 		$hashedPassword = $this->hash_password();
-		add_user_database_pdo($this->connection, $this->user, $hashedPassword);
+		//add_user_database_pdo($this->connection, $this->user, $hashedPassword);
+		$this->userCrud->createUser($this->user, $hashedPassword);
 	}
 }
+
+// Create an instance of the Crud class (assuming it's implemented elsewhere)
+$crud = new Crud(/* Pass any necessary parameters */);
+
+	// Create an instance of the UserCrud class
+	$userCrud = new UserCrud($crud);
+	
+	// Call the retrieveUserData() method with the specified parameters
+	$column = "password_hashed";
+	$username = "100";
+	$userData = $userCrud->retrieveUserData($column, $username);
+	
+	// Output the result
+	var_dump($userData);
 
 
 ?>

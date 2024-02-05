@@ -112,6 +112,7 @@ class Crud {
 
 }
 
+/*
 $crud = new Crud();
 
 //select table
@@ -202,5 +203,6 @@ if ($rowsAffected !== false) {
 } else {
     echo "Failed to delete rows.";
 }
+*/
 
 ?>
