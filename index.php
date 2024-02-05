@@ -9,7 +9,7 @@ $userCrud = $crudFactory->createCrud('user');
 
 $modelFactory = new ModelFactory($crudFactory);
 
-$pageController = new PageController($modelFactory); //passing modelFactory to PageController
+$pageController = new PageController($modelFactory, $crudFactory); //passing model/crud Factory to PageController
 $pageController->handleRequest();
 
 

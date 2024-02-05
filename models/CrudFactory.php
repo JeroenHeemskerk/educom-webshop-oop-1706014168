@@ -1,7 +1,9 @@
 <?php
 
-require_once "Crud.php"
-;
+require_once "Crud.php";
+require_once "CrudUser.php";
+require_once "CrudShop.php";
+
 class CrudFactory {
 
     public function createCrud($name) {
