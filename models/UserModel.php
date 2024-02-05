@@ -21,7 +21,7 @@ class UserModel extends pageModel {
 	
 	public function __construct($pageModel, UserCrud $userCrud) {
 		PARENT:: __construct($pageModel); 
-		$this->UserCrud = $userCrud;
+		$this->userCrud = $userCrud;
 	}
 	
 	public function validateLogin() {
@@ -101,7 +101,7 @@ class UserModel extends pageModel {
 
 		if ($userData !== null) {
 			// Username exists, now verify the password
-			$hashedPassword = $userData['password_hashed'];
+			$hashedPassword = $userData; //was $userData['password_hashed']
 
 			if (password_verify($this->password, $hashedPassword)) {
 				// Password is correct
@@ -142,20 +142,6 @@ class UserModel extends pageModel {
 		$this->userCrud->createUser($this->user, $hashedPassword);
 	}
 }
-
-// Create an instance of the Crud class (assuming it's implemented elsewhere)
-$crud = new Crud(/* Pass any necessary parameters */);
-
-	// Create an instance of the UserCrud class
-	$userCrud = new UserCrud($crud);
-	
-	// Call the retrieveUserData() method with the specified parameters
-	$column = "password_hashed";
-	$username = "100";
-	$userData = $userCrud->retrieveUserData($column, $username);
-	
-	// Output the result
-	var_dump($userData);
 
 
 ?>

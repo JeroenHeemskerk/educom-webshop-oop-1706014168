@@ -32,7 +32,12 @@ class UserCrud {
         $sql = "SELECT $column FROM $table WHERE username = ?";
         $params = [$username];
         $data = $this->crud->readOneRow($sql, $params);
-        return $data;
+        //this fetches an object. how to make it usable?
+        if ($data && isset($data->$column)) {
+            return $data->$column;
+        } else {
+            return null;
+        }
     }
 
     function getUserId($username) {
