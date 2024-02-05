@@ -88,12 +88,28 @@ class Crud {
     }
 
     public function updateRow($sql, $params) {
-
+        try {
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute($params);
+            //how many rows affected:
+            return $stmt->rowCount();
+        } catch(PDOException $e) {
+            echo "Error: " . $e->getMessage();
+            return false;
+        }
     }
 
     public function deleteRow($sql, $params) {
-
+        try {
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute($params);
+            return $stmt->rowCount();
+        } catch(PDOException $e) {
+            echo "Error " . $e->getmessage();
+            return false;
+        }
     }
+
 }
 
 $crud = new Crud();
@@ -159,5 +175,32 @@ if ($rows) {
     echo "No such rows detected.";
 }
 
+//update example:
+
+$table = "username";
+$sql = "UPDATE $table SET username = ? WHERE id = ?";
+$params = ["Guest", 1]; //Parameters: new name and ID of the row to update
+
+$rowsAffected = $crud->updateRow($sql, $params);
+
+if ($rowsAffected !== false) {
+    echo "Rows updated: " . $rowsAffected;
+} else {
+    echo "Failed to update rows.";
+}
+
+//delete example:
+
+$table = "username";
+$sql = "DELETE FROM $table WHERE id = ?";
+$params = [4]; // Example parameter: ID of the row to delete
+
+$rowsAffected = $crud->deleteRow($sql, $params);
+
+if ($rowsAffected !== false) {
+    echo "<br>Rows deleted: " . $rowsAffected;
+} else {
+    echo "Failed to delete rows.";
+}
 
 ?>

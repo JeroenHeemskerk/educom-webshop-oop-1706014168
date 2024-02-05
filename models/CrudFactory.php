@@ -1,8 +1,8 @@
 <?php
 
-class ModelFactory {
+class CrudFactory {
 
-    function createModel($type) {
+    public function createCrud($name) {
 
     }
 
