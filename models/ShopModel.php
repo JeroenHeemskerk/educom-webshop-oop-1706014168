@@ -27,8 +27,6 @@ class ShopModel extends pageModel {
             $orders = $this->shopCrud->retrieveOrderHistory($userId);
             $this->orders = $orders;
 
-        //while fetch assoc....... see datalayer logic
-
             if (empty($orders)) {
                $orders = "";
             } else {

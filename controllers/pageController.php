@@ -8,19 +8,12 @@ class pageController { //assumption: are not in the hierarchy of inheritance, so
 	private $modelFactory; //to store modelFactory instance
 	private $model;
 	private $crudFactory;
-
-	//private $userCrud; was for testing purposes
-
-	private $shopCrud;
-
 	private $sessionManager; //why does it also work without a sessionmanager property defined
 	
 	public function __construct(ModelFactory $modelFactory, CrudFactory $crudFactory) {
 		$this->modelFactory = $modelFactory;
 		$this->model = $this->modelFactory->createModel(null, 'PageModel');
 		$this->crudFactory = $crudFactory;
-		//$this->userCrud = $this->crudFactory->createCrud('user');
-		$this->shopCrud = $this->crudFactory->createCrud('shop');
 	}
 	
 	public function handleRequest() {
@@ -82,26 +75,23 @@ class pageController { //assumption: are not in the hierarchy of inheritance, so
 						$amount = $_POST['amount'][$itemId];
 						$this->handleAddToCart($itemId, $amount);
 					}
-				include_once "./models/ShopModel.php";
-				$this->model = new ShopModel($this->model, $this->shopCrud);
+				$this->model = $this->modelFactory->createModel($this->model, 'ShopModel');
 				$this->model->prepareWebshopData();
 				$this->model->prepareOrderData();
 				break;
 			case "mycart":
-				include_once "./models/ShopModel.php";
-				$this->model = new ShopModel($this->model, $this->shopCrud);
+				$this->model = $this->modelFactory->createModel($this->model, 'ShopModel');
 				$this->model->prepareWebshopData();
 
 				if (isset($_POST['placeOrder'])) {
 					$this->handlePlaceOrder();
 				}
-				if (isset($_POST['clearCart'])) { //this button does not work
+				if (isset($_POST['clearCart'])) {
 					$this->handleClearCart();
 				}
 				break;
 			case "orderhistory":
-				include_once "./models/ShopModel.php";
-				$this->model = new ShopModel($this->model, $this->shopCrud);
+				$this->model = $this->modelFactory->createModel($this->model, 'ShopModel');
 				$this->model->prepareOrderData();
 				break;
 		}
@@ -109,16 +99,14 @@ class pageController { //assumption: are not in the hierarchy of inheritance, so
 
 	private function handleAddToCart($itemId, $amount) {
 		$userId = $_SESSION['user_id'];
-		include_once "./models/ShopModel.php";
-		$this->model = new ShopModel($this->model, $this->shopCrud);
+		$this->model = $this->modelFactory->createModel($this->model, 'ShopModel');
 		$itemDetails = $this->model->cartSpecificItemDetails($itemId);
 		$this->model->addToCart($_SESSION['user_id'], $itemId, $amount, $itemDetails); //Implement addToCart method in ShopModel
 	}
 
 	private function handlePlaceOrder() {
 		$userId = $_SESSION['user_id'];
-		include_once "./models/ShopModel.php";
-		$this->model = new ShopModel($this->model, $this->shopCrud);
+		$this->model = $this->modelFactory->createModel($this->model, 'ShopModel');
 		$this->model->placeOrder($_SESSION['user_id'], $_SESSION['user']); // Implement placeOrder method in ShopModel
 	}
 
