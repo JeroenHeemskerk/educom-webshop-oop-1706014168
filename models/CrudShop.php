@@ -60,20 +60,20 @@ class ShopCrud {
     }
 }
 
-
+/*
 $crud = new Crud();
 $shopCrud = new ShopCrud($crud);
 
 $data = $shopCrud->retrieveAllItems();
 $data2 = $shopCrud->retrieveSpecificItem("item_name", 1);
-$data3 = $shopCrud->insertIntoOrdersTable(1, 1, "1000");
+$data3 = $shopCrud->insertIntoOrdersTable(1, 1, "");
 
 var_dump($data);
 echo "<br><br>";
 var_dump($data2);
 echo "<br><br>";
 var_dump($data3);
-
+*/
 
 /*procedural functions to be converted:
 
