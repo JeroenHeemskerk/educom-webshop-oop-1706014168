@@ -1,5 +1,5 @@
 <?php
-/*
+
 class ShopCrud {    
     private $pdo;
 
@@ -13,8 +13,8 @@ class ShopCrud {
     }
 
     function retrieveItems() {
-        $sql = ""
-        $params = [$column]
+        $sql = "";
+        $params = [$column];
     }
 
     //createProduct not strictly necessary to make webshop function

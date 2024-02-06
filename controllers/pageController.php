@@ -12,7 +12,7 @@ class pageController { //assumption: are not in the hierarchy of inheritance, so
 	
 	public function __construct(ModelFactory $modelFactory, CrudFactory $crudFactory) {
 		$this->modelFactory = $modelFactory;
-		$this->model = $this->modelFactory->createModel('PageModel');
+		$this->model = $this->modelFactory->createModel(null, 'PageModel');
 		$this->crudFactory = $crudFactory;
 		$this->userCrud = $this->crudFactory->createCrud('user');
 	}
@@ -39,9 +39,9 @@ class pageController { //assumption: are not in the hierarchy of inheritance, so
 	private function processRequest() {
 		switch($this->model->page) {
 			case "login":
-				include_once "./models/UserModel.php";
-			    //$this->model = $this->modelFactory->createModel('UserModel');
-				$this->model = new UserModel ($this->model, $this->userCrud);
+				//include_once "./models/UserModel.php";
+			    $this->model = $this->modelFactory->createModel($this->model, 'UserModel');
+				//$this->model = new UserModel ($this->model, $this->userCrud);
 				$this->model->validateLogin();
 				if($this->model->valid) {
 					$this->model->doLoginUser();
