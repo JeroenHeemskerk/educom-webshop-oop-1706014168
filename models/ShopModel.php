@@ -7,14 +7,17 @@ class ShopModel extends pageModel {
     public $cart = []; //empty array of cart items
     public $orders = [];
 
-    public function __construct($pageModel) {
+    private $shopCrud;
+
+    public function __construct($pageModel, ShopCrud $shopCrud) {
 		PARENT:: __construct($pageModel);
+        $this->shopCrud = $shopCrud;
 
 	}
 
     public function prepareWebshopData() {
         //Call function to get items from database
-        $items = get_items($this->connection);
+        $items = $this->shopCrud->retrieveAllItems();
         $this->items = $items;
     }
 

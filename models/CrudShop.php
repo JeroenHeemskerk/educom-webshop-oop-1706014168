@@ -47,22 +47,24 @@ class ShopCrud {
 $crud = new Crud();
 $shopCrud = new ShopCrud($crud);
 
-$data = $shopCrud->retrieveOrderHistory(1);
 //$data = $shopCrud->retrieveAllItems();
 //$data2 = $shopCrud->retrieveSpecificItem("item_name", 1);
 //$data3 = $shopCrud->insertIntoOrdersTable(1, 1, "");
+//$data4 = $shopCrud->retrieveOrderHistory(1);
 
-var_dump($data);
+//var_dump($data);
 //echo "<br><br>";
 //var_dump($data2);
 //echo "<br><br>";
 //var_dump($data3);
+//echo "<br><br>";
+//var_dump($data4);
 
 
 /*procedural functions to be converted:
 
 ## function add_to_cart, should be handled in sessionmanager ##
-*/
+
 function get_order_history($connection) { //used to fetch $user and $userid arguments too
     if(isset($_SESSION['user'])) {
         $userId = $_SESSION['user_id'];
@@ -86,7 +88,7 @@ function get_order_history($connection) { //used to fetch $user and $userid argu
         echo "you're not logged in!"; 
     }
 }
-/*
+
 function place_order($userId, $user, $connection) {
 	//Check if the user == "guest"
     if (check_if_guest($user)) {

@@ -95,7 +95,7 @@ class UserModel extends pageModel {
 		}
 	}
 	
-	public function authenticateUser() {
+	public function authenticateUser($user, $password) {
 			// Authenticate username
 		$userData = $this->userCrud->retrieveUserData("password_hashed", $this->user);
 

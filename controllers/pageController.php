@@ -10,6 +10,8 @@ class pageController { //assumption: are not in the hierarchy of inheritance, so
 	private $crudFactory;
 	private $userCrud;
 
+	private $shopCrud;
+
 	private $sessionManager; //why does it also work without a sessionmanager property defined
 	
 	public function __construct(ModelFactory $modelFactory, CrudFactory $crudFactory) {
@@ -17,6 +19,7 @@ class pageController { //assumption: are not in the hierarchy of inheritance, so
 		$this->model = $this->modelFactory->createModel(null, 'PageModel');
 		$this->crudFactory = $crudFactory;
 		$this->userCrud = $this->crudFactory->createCrud('user');
+		$this->shopCrud = $this->crudFactory->createCrud('shop');
 	}
 	
 	public function handleRequest() {
@@ -79,13 +82,13 @@ class pageController { //assumption: are not in the hierarchy of inheritance, so
 						$this->handleAddToCart($itemId, $amount);
 					}
 				include_once "./models/ShopModel.php";
-				$this->model = new ShopModel($this->model);
+				$this->model = new ShopModel($this->model, $this->shopCrud);
 				$this->model->prepareWebshopData();
 				$this->model->prepareOrderData();
 				break;
 			case "mycart":
 				include_once "./models/ShopModel.php";
-				$this->model = new ShopModel($this->model);
+				$this->model = new ShopModel($this->model, $this->shopCrud);
 				$this->model->prepareWebshopData();
 
 				if (isset($_POST['placeOrder'])) {
@@ -97,7 +100,7 @@ class pageController { //assumption: are not in the hierarchy of inheritance, so
 				break;
 			case "orderhistory":
 				include_once "./models/ShopModel.php";
-				$this->model = new ShopModel($this->model);
+				$this->model = new ShopModel($this->model, $this->shopCrud);
 				$this->model->prepareOrderData();
 				break;
 		}
@@ -106,7 +109,7 @@ class pageController { //assumption: are not in the hierarchy of inheritance, so
 	private function handleAddToCart($itemId, $amount) {
 		$userId = $_SESSION['user_id'];
 		include_once "./models/ShopModel.php";
-		$this->model = new ShopModel($this->model);
+		$this->model = new ShopModel($this->model, $this->shopCrud);
 		$itemDetails = $this->model->cartSpecificItemDetails($itemId);
 		$this->model->addToCart($_SESSION['user_id'], $itemId, $amount, $itemDetails); //Implement addToCart method in ShopModel
 	}
@@ -114,7 +117,7 @@ class pageController { //assumption: are not in the hierarchy of inheritance, so
 	private function handlePlaceOrder() {
 		$userId = $_SESSION['user_id'];
 		include_once "./models/ShopModel.php";
-		$this->model = new ShopModel($this->model);
+		$this->model = new ShopModel($this->model, $this->shopCrud);
 		$this->model->placeOrder($_SESSION['user_id'], $_SESSION['user']); // Implement placeOrder method in ShopModel
 	}
 
