@@ -50,8 +50,8 @@ class pageController { //assumption: are not in the hierarchy of inheritance, so
 				break;
 			case "logout":
 				$this->model = $this->modelFactory->createModel($this->model, 'UserModel');
-						$this->handleLogout();
-						$this->model->setPage("home");
+				$this->handleLogout();
+				$this->model->setPage("home");
 				break;
 			case "register":
 				$this->model = $this->modelFactory->createModel($this->model, 'UserModel');

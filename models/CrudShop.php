@@ -13,8 +13,9 @@ class ShopCrud {
     }
 
     function retrieveItems() {
-        $sql = "";
-        $params = [$column];
+        $data = "*";
+        $sql = "SELECT $data FROM $this->table";
+        $items = $this->crud->runSelectQuery($data, $this->table);
     }
 
     //createProduct not strictly necessary to make webshop function
@@ -43,6 +44,9 @@ class ShopCrud {
     }
 }
 
+
+$crud = new Crud();
+$shopCrud = new ShopCrud();
 
 
 /*procedural functions to be converted:

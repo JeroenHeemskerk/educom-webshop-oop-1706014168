@@ -36,7 +36,7 @@ class UserCrud {
     }
 
     function getUserId($username) {
-        $sql = "SELECT id From $this->table WHERE username = ?";
+        $sql = "SELECT id FROM $this->table WHERE username = ?";
         $params = [$username];
         $userId = $this->crud->readOneRow($sql, $params);
     }
@@ -56,7 +56,7 @@ class UserCrud {
 }
 
 //Create an instance of the Crud class (assuming it's implemented elsewhere)
-$crud = new Crud(/* Pass any necessary parameters */);
+$crud = new Crud();
 
 	//Create an instance of the UserCrud class
 	$userCrud = new UserCrud($crud);
