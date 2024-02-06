@@ -3,8 +3,6 @@
 require_once "Crud.php";
 
 class ShopCrud {    
-    private $pdo;
-
     //setting properties with default values
     private $crud;
     private $table;
@@ -34,48 +32,41 @@ class ShopCrud {
         return $order;
     }
 
+    public function retrieveOrderHistory($userId) {
+        $sql = "SELECT orders.id, items.item_name, orders.user_id, orders.amount FROM orders
+        JOIN items ON orders.item_id = items.id
+        WHERE orders.user_id = ?";
+        $params = [$userId];
+        $orderHistory = $this->crud->readMultipleRows($sql, $params);
+        return $orderHistory;
+    }
+
 }
 
-/*
+
 $crud = new Crud();
 $shopCrud = new ShopCrud($crud);
 
-$data = $shopCrud->retrieveAllItems();
-$data2 = $shopCrud->retrieveSpecificItem("item_name", 1);
-$data3 = $shopCrud->insertIntoOrdersTable(1, 1, "");
+$data = $shopCrud->retrieveOrderHistory(1);
+//$data = $shopCrud->retrieveAllItems();
+//$data2 = $shopCrud->retrieveSpecificItem("item_name", 1);
+//$data3 = $shopCrud->insertIntoOrdersTable(1, 1, "");
 
 var_dump($data);
-echo "<br><br>";
-var_dump($data2);
-echo "<br><br>";
-var_dump($data3);
-*/
+//echo "<br><br>";
+//var_dump($data2);
+//echo "<br><br>";
+//var_dump($data3);
+
 
 /*procedural functions to be converted:
 
-function get_items($connection) {
-	$items = array();
-	$query = "SELECT * FROM items";
-	$result = mysqli_query($connection, $query);
-	while ($row = mysqli_fetch_assoc($result)) {
-			$items[] = $row; //misses closing bracket
-	}
-		return $items;
-}
-
-function get_specific_item_details($connection, $itemId) {
-    $query = "SELECT item_name FROM items WHERE id = $itemId"; //could be more generic
-    $result = mysqli_query($connection, $query);
-    return mysqli_fetch_assoc($result); //returns one row
-}
-
 ## function add_to_cart, should be handled in sessionmanager ##
-
+*/
 function get_order_history($connection) { //used to fetch $user and $userid arguments too
     if(isset($_SESSION['user'])) {
         $userId = $_SESSION['user_id'];
 
-		// Query to get items in the user's cart
         $query = "SELECT orders.id, items.item_name, orders.user_id, orders.amount FROM orders
                   JOIN items ON orders.item_id = items.id
                   WHERE orders.user_id = $userId"; 
@@ -95,7 +86,7 @@ function get_order_history($connection) { //used to fetch $user and $userid argu
         echo "you're not logged in!"; 
     }
 }
-
+/*
 function place_order($userId, $user, $connection) {
 	//Check if the user == "guest"
     if (check_if_guest($user)) {

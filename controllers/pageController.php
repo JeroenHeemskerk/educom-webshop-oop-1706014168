@@ -66,7 +66,7 @@ class pageController { //assumption: are not in the hierarchy of inheritance, so
 				$this->model = $this->modelFactory->createModel($this->model, 'UserModel');
 				$this->model->validateMessage(); //unnecessary
 				if($this->model->valid) {
-					$this->model->saveMessage(); //non-existent and unnecessary
+					//$this->model->saveMessage(); //non-existent and unnecessary. Unless it will still be created
 					$this->model->setPage("contact");
 				}
 				break;
