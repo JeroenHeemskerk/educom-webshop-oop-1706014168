@@ -9,22 +9,29 @@ class ShopCrud {
     private $crud;
     private $table;
 
-    function __construct(Crud $crud, $table = "items") {
+    public function __construct(Crud $crud, $table = "items") {
         $this->crud = $crud;
         $this->table = $table;
     }
 
-    function retrieveAllItems() {
+    public function retrieveAllItems() {
         $data = "*";
         $sql = "SELECT $data FROM $this->table";
         $items = $this->crud->runSelectQuery($data, $this->table);
         return $items;
     }
 
-    function retrieveSpecificItem($column, $itemId) {
+    public function retrieveSpecificItem($column, $itemId) {
         $sql = "SELECT $column FROM $this->table WHERE id = ?";
         $params = [$itemId];
         return $this->crud->readOneRow($sql, $params);
+    }
+
+    public function insertIntoOrdersTable($userId, $itemId, $amount) {
+        $sql = "INSERT INTO orders (user_id, item_id, amount) VALUES (?, ?, ?)";
+        $params = [$userId, $itemId, $amount];
+        $order = $this->crud->createRow($sql, $params);
+        return $order;
     }
 
     //createProduct not strictly necessary to make webshop function
@@ -59,10 +66,13 @@ $shopCrud = new ShopCrud($crud);
 
 $data = $shopCrud->retrieveAllItems();
 $data2 = $shopCrud->retrieveSpecificItem("item_name", 1);
+$data3 = $shopCrud->insertIntoOrdersTable(1, 1, "1000");
 
 var_dump($data);
 echo "<br><br>";
 var_dump($data2);
+echo "<br><br>";
+var_dump($data3);
 
 
 /*procedural functions to be converted:
@@ -92,7 +102,7 @@ function get_order_history($connection) { //used to fetch $user and $userid argu
 		// Query to get items in the user's cart
         $query = "SELECT orders.id, items.item_name, orders.user_id, orders.amount FROM orders
                   JOIN items ON orders.item_id = items.id
-                  WHERE orders.user_id = $userId"; //Should be: where orders.user_id = $userId
+                  WHERE orders.user_id = $userId"; 
 
         $result = mysqli_query($connection, $query);
 		

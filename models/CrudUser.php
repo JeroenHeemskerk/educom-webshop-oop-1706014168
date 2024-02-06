@@ -6,24 +6,24 @@ class UserCrud {
     private $crud; //property storing instance of generic crud class
     private $table;
 
-    function __construct(Crud $crud, $table = "username") { //use dependency injection
+    public function __construct(Crud $crud, $table = "username") { //use dependency injection
         $this->crud = $crud;
         $this->table = $table;
     }
 
-    function createUser($username, $password) { //use dependency injection, etc.
+    public function createUser($username, $password) { //use dependency injection, etc.
         $sql = "INSERT INTO $this->table (username, password_hashed) VALUES (?, ?)";
         $params = [$username, $password];
         return $this->crud->createRow($sql, $params);
     }
 
-    function readUserByUsername($username) {
+    public function readUserByUsername($username) {
         $sql = "SELECT * FROM $this->table WHERE username = ?";
         $params = [$username];
         return $this->crud->readOneRow($sql, $params);
     }
 
-    function retrieveUserData($column, $username) {
+    public function retrieveUserData($column, $username) {
         $sql = "SELECT $column FROM $this->table WHERE username = ?";
         $params = [$username];
         $data = $this->crud->readOneRow($sql, $params);
@@ -35,13 +35,13 @@ class UserCrud {
         }
     }
 
-    function getUserId($username) {
+    public function getUserId($username) {
         $sql = "SELECT id FROM $this->table WHERE username = ?";
         $params = [$username];
         $userId = $this->crud->readOneRow($sql, $params);
     }
 
-    function updateUser($userId, $newUsername) {
+    public function updateUser($userId, $newUsername) {
         $sql = "UPDATE $this->table SET username = ? WHERE id = ?";
         $params = [$newUsername, $userId];
         return $this->crud->updateRow($sql, $params);
