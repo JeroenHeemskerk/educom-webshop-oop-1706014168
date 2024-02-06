@@ -9,6 +9,8 @@ class pageController { //assumption: are not in the hierarchy of inheritance, so
 	private $model;
 	private $crudFactory;
 	private $userCrud;
+
+	private $sessionManager; //why does it also work without a sessionmanager property defined
 	
 	public function __construct(ModelFactory $modelFactory, CrudFactory $crudFactory) {
 		$this->modelFactory = $modelFactory;
@@ -44,8 +46,7 @@ class pageController { //assumption: are not in the hierarchy of inheritance, so
 				if($this->model->valid) {
 					$this->model->doLoginUser();
 					$this->model->setPage("home");
-					$this->userId = $this->model->getUserId();
-					$_SESSION['user_id'] = $this->userId;
+					$_SESSION['user_id'] = $this->model->getUserId();
 				}
 				break;
 			case "logout":
@@ -63,9 +64,9 @@ class pageController { //assumption: are not in the hierarchy of inheritance, so
 				break;
 			case "contact":
 				$this->model = $this->modelFactory->createModel($this->model, 'UserModel');
-				$this->model->validateMessage(); //non-existent and unnecessary
+				$this->model->validateMessage(); //unnecessary
 				if($this->model->valid) {
-					$this->model->saveMessage();
+					$this->model->saveMessage(); //non-existent and unnecessary
 					$this->model->setPage("contact");
 				}
 				break;
