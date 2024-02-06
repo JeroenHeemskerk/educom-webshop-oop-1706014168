@@ -27,7 +27,7 @@ class UserCrud {
         $sql = "SELECT $column FROM $this->table WHERE username = ?";
         $params = [$username];
         $data = $this->crud->readOneRow($sql, $params);
-        //this fetches an object. how to make it usable?
+        //this fetches an object. how to make it usable? like so:
         if ($data && isset($data->$column)) {
             return $data->$column;
         } else {
@@ -54,21 +54,5 @@ class UserCrud {
     }
 
 }
-
-//Create an instance of the Crud class (assuming it's implemented elsewhere)
-$crud = new Crud();
-
-	//Create an instance of the UserCrud class
-	$userCrud = new UserCrud($crud);
-	
-	//Calls the retrieveUserData() method with the specified parameters
-	$column = "password_hashed";
-	$username = "100";
-	$userData = $userCrud->retrieveUserData($column, $username);
-
-
-//I think the datalayer functions should be converted and written in here
-
-
 
 ?>

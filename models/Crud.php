@@ -40,15 +40,13 @@ class Crud {
     public function createRow($sql, $params) {
         //Prepare statement
         try {
-        $stmt = $this->pdo->prepare($sql);
-
-        //Execute statement with parameters
-        $stmt->execute($params);
-
-        //Retrieve ID last inserted row
-        $rowId = $this->pdo->lastInsertId();
+            $stmt = $this->pdo->prepare($sql);
+            //Execute statement with parameters
+            $stmt->execute($params);
+            //Retrieve ID last inserted row
+            $rowId = $this->pdo->lastInsertId();
         
-        return $rowId;
+            return $rowId;
 
         } catch(PDOException $e) {
             //Handle errors
@@ -66,7 +64,6 @@ class Crud {
             return $row;
 
         } catch(PDOException $e) {
-            //ERROR handling
             echo "Error: " . $e->getMessage();
             return false;
         }
@@ -86,6 +83,8 @@ class Crud {
             return false;
         }
     }
+
+    //following methods unused:
 
     public function updateRow($sql, $params) {
         try {
@@ -111,98 +110,5 @@ class Crud {
     }
 
 }
-
-/*
-$crud = new Crud();
-
-//select table
-$data = 'username, password_hashed';
-$table = 'username';
-
-$result = $crud->runSelectQuery($data, $table);
-
-if ($result !== false) {
-    var_dump($result);
-} else {
-    echo "an error occurred while executing query";
-}
-
-//create a row
-$table = "username";
-$column = "username, password_hashed";
-$sql = "INSERT INTO $table ($column) VALUES (?, ?)";
-$params = ["testingCRUD", "CRUD"];
-
-$rowId = $crud->createRow($sql, $params);
-
-if($rowId !== false) {
-    echo "Row inserted succesfully. RowId: $rowId"; //rowid returned
-} else {
-    echo "unsuccessful";
-}
-
-echo "<br><br>";
-
-//read one row and return object
-$table = "username";
-$column = "id";
-
-
-$sql = "SELECT * FROM $table WHERE $column = ?";
-$params = [1]; // Example parameter id = 1
-
-$row = $crud->readOneRow($sql, $params);
-
-if($row) {
-    var_dump($row); //Displaying the fetched row as an object
-} else {
-    echo "Unable to fetch the row.";
-}
-
-//read multiple rows and return array of objects or classes
-$table = "orders";
-$column = "amount";
-$sql = "SELECT * FROM $table WHERE $column = ?"; //returns all orders where the amount is 3
-$params = ["3"];
-
-$rows = $crud->readMultipleRows($sql, $params);
-
-if ($rows) {
-    foreach ($rows as $row) {
-        var_dump($row);
-        echo "<br>";
-    }
-} else {
-    echo "No such rows detected.";
-}
-
-//update example:
-
-$table = "username";
-$sql = "UPDATE $table SET username = ? WHERE id = ?";
-$params = ["Guest", 1]; //Parameters: new name and ID of the row to update
-
-$rowsAffected = $crud->updateRow($sql, $params);
-
-if ($rowsAffected !== false) {
-    echo "Rows updated: " . $rowsAffected;
-} else {
-    echo "Failed to update rows.";
-}
-
-//delete example:
-
-$table = "username";
-$sql = "DELETE FROM $table WHERE id = ?";
-$params = [4]; // Example parameter: ID of the row to delete
-
-$rowsAffected = $crud->deleteRow($sql, $params);
-
-if ($rowsAffected !== false) {
-    echo "<br>Rows deleted: " . $rowsAffected;
-} else {
-    echo "Failed to delete rows.";
-}
-*/
 
 ?>

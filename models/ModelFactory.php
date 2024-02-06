@@ -24,7 +24,7 @@ class ModelFactory {
                 $this -> model = new ShopModel($this->model, $this->crudFactory->createCrud('shop'));
                 break;
             case 'PageModel':
-                $this -> model = new PageModel(NULL, NULL);
+                $this -> model = new PageModel(NULL);
                 break;
             default:
                 throw new Exception("That is not an actual Model type: $type");

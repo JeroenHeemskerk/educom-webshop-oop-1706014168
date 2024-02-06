@@ -13,7 +13,7 @@ class CrudFactory {
             case 'shop':
                 return new ShopCrud(new Crud());
             default:
-                throw new Exception("That is not an actual CRUD name: $name");
+                throw new Exception("That case is not an actual CRUD name: $name");
         }
     }
 
