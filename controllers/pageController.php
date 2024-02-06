@@ -8,7 +8,8 @@ class pageController { //assumption: are not in the hierarchy of inheritance, so
 	private $modelFactory; //to store modelFactory instance
 	private $model;
 	private $crudFactory;
-	private $userCrud;
+
+	//private $userCrud; was for testing purposes
 
 	private $shopCrud;
 
@@ -18,7 +19,7 @@ class pageController { //assumption: are not in the hierarchy of inheritance, so
 		$this->modelFactory = $modelFactory;
 		$this->model = $this->modelFactory->createModel(null, 'PageModel');
 		$this->crudFactory = $crudFactory;
-		$this->userCrud = $this->crudFactory->createCrud('user');
+		//$this->userCrud = $this->crudFactory->createCrud('user');
 		$this->shopCrud = $this->crudFactory->createCrud('shop');
 	}
 	

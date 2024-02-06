@@ -22,7 +22,13 @@ class ShopCrud {
     public function retrieveSpecificItem($column, $itemId) {
         $sql = "SELECT $column FROM $this->table WHERE id = ?";
         $params = [$itemId];
-        return $this->crud->readOneRow($sql, $params);
+        $data = $this->crud->readOneRow($sql, $params);
+        //this fetches object. To make it usable:
+        if ($data && isset($data->$column)) {
+            return $data->$column;
+        } else {
+            return null;
+        }
     }
 
     public function insertIntoOrdersTable($userId, $itemId, $amount) {

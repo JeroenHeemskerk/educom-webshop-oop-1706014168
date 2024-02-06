@@ -22,12 +22,25 @@ class ShopModel extends pageModel {
     }
 
     public function prepareOrderData() {
-        $orders = get_order_history($this->connection);
-        $this->orders = $orders;
+        if(isset($_SESSION['user'])) {
+            $userId = $_SESSION['user_id'];
+            $orders = $this->shopCrud->retrieveOrderHistory($userId);
+            $this->orders = $orders;
+
+        //while fetch assoc....... see datalayer logic
+
+            if (empty($orders)) {
+               $orders = "";
+            } else {
+                return $orders;
+            }
+        } else {
+            echo "you're not logged in!";
+        }
     }
 
     public function cartSpecificItemDetails($itemId) {
-        $itemDetails = get_specific_item_details($this->connection, $itemId);
+        $itemDetails = $this->shopCrud->retrieveSpecificItem("item_name", $itemId);
         return $itemDetails;
     }
 
@@ -40,7 +53,7 @@ class ShopModel extends pageModel {
             'userId' => $userId, 
             'itemId' => $itemId, 
             'amount' => $amount, 
-            'item_name' => implode(" ",$itemDetails) //it had previously been returned as an array
+            'item_name' => $itemDetails //before it had to implode
         ); 
     }
 
@@ -56,7 +69,7 @@ class ShopModel extends pageModel {
                 $amount = $cartItem['amount'];
                 $userId = $_SESSION['user_id'];
                 $user = $_SESSION['user'];
-                insert_into_orders_table($this->connection, $itemId, $user, $userId, $amount);
+                $this->shopCrud->insertIntoOrdersTable($userId, $itemId, $amount);
             }
 
             //Clearing the cart after placing the order
