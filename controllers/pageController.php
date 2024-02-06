@@ -34,10 +34,13 @@ class pageController { //assumption: are not in the hierarchy of inheritance, so
 	
 	//Business flow code
 	
+	//refactor so that creation Usermodel goes through ModelFactory
+
 	private function processRequest() {
 		switch($this->model->page) {
 			case "login":
 				include_once "./models/UserModel.php";
+			    //$this->model = $this->modelFactory->createModel('UserModel');
 				$this->model = new UserModel ($this->model, $this->userCrud);
 				$this->model->validateLogin();
 				if($this->model->valid) {

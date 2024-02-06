@@ -1,7 +1,9 @@
 <?php
 
 include_once "pageModel.php";
+include_once "UserModel.php";
 require_once "CrudFactory.php";
+
 
 class ModelFactory {
     private $crudFactory;
@@ -13,7 +15,8 @@ class ModelFactory {
     public function createModel($type) {
         switch ($type) {
             case 'UserModel':
-                return new UserModel($this->crudFactory->createCrud('user'));
+                //needs to have second parameter to call constructor of pagemodel(?)
+                return new UserModel($this->createModel('PageModel'), $this->crudFactory->createCrud('user'));
             case 'ShopModel':
                 return new ShopModel($this->crudFactory->createCrud('shop'));
             case 'PageModel':

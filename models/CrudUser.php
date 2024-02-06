@@ -55,19 +55,16 @@ class UserCrud {
 
 }
 
-// Create an instance of the Crud class (assuming it's implemented elsewhere)
+//Create an instance of the Crud class (assuming it's implemented elsewhere)
 $crud = new Crud(/* Pass any necessary parameters */);
 
-	// Create an instance of the UserCrud class
+	//Create an instance of the UserCrud class
 	$userCrud = new UserCrud($crud);
 	
-	// Call the retrieveUserData() method with the specified parameters
+	//Calls the retrieveUserData() method with the specified parameters
 	$column = "password_hashed";
 	$username = "100";
 	$userData = $userCrud->retrieveUserData($column, $username);
-	
-	// Output the result
-	var_dump($userData);
 
 
 //I think the datalayer functions should be converted and written in here
