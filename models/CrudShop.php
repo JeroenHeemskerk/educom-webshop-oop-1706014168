@@ -1,5 +1,7 @@
 <?php
 
+require_once "Crud.php";
+
 class ShopCrud {    
     private $pdo;
 
@@ -12,10 +14,17 @@ class ShopCrud {
         $this->table = $table;
     }
 
-    function retrieveItems() {
+    function retrieveAllItems() {
         $data = "*";
         $sql = "SELECT $data FROM $this->table";
         $items = $this->crud->runSelectQuery($data, $this->table);
+        return $items;
+    }
+
+    function retrieveSpecificItem($column, $itemId) {
+        $sql = "SELECT $column FROM $this->table WHERE id = ?";
+        $params = [$itemId];
+        return $this->crud->readOneRow($sql, $params);
     }
 
     //createProduct not strictly necessary to make webshop function
@@ -46,7 +55,14 @@ class ShopCrud {
 
 
 $crud = new Crud();
-$shopCrud = new ShopCrud();
+$shopCrud = new ShopCrud($crud);
+
+$data = $shopCrud->retrieveAllItems();
+$data2 = $shopCrud->retrieveSpecificItem("item_name", 1);
+
+var_dump($data);
+echo "<br><br>";
+var_dump($data2);
 
 
 /*procedural functions to be converted:
