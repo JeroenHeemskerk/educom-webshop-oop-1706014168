@@ -33,7 +33,7 @@ class pageController { //assumption: are not in the hierarchy of inheritance, so
 	
 	//Business flow code
 	
-	//refactor so that creation Usermodel goes through ModelFactory
+	//refactor so that creation Usermodel/Shopmodel goes through ModelFactory
 
 	private function processRequest() {
 		switch($this->model->page) {
@@ -62,9 +62,9 @@ class pageController { //assumption: are not in the hierarchy of inheritance, so
 			case "contact":
 				$this->model = $this->modelFactory->createModel($this->model, 'UserModel');
 				$this->model->validateMessage(); //unnecessary
-				if($this->model->valid) {
-					//$this->model->saveMessage(); //non-existent and unnecessary. Unless it will still be created
-					$this->model->setPage("contact");
+					if($this->model->valid) {
+						//$this->model->saveMessage(); //non-existent and unnecessary. Unless it will still be created
+						$this->model->setPage("contact");
 				}
 				break;
 			case "Shop":
@@ -83,12 +83,12 @@ class pageController { //assumption: are not in the hierarchy of inheritance, so
 				$this->model = $this->modelFactory->createModel($this->model, 'ShopModel');
 				$this->model->prepareWebshopData();
 
-				if (isset($_POST['placeOrder'])) {
-					$this->handlePlaceOrder();
-				}
-				if (isset($_POST['clearCart'])) {
-					$this->handleClearCart();
-				}
+					if (isset($_POST['placeOrder'])) {
+						$this->handlePlaceOrder();
+					}
+					if (isset($_POST['clearCart'])) {
+						$this->handleClearCart();
+					}
 				break;
 			case "orderhistory":
 				$this->model = $this->modelFactory->createModel($this->model, 'ShopModel');

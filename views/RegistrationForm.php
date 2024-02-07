@@ -10,7 +10,7 @@ class RegistrationForm extends FormsDoc {
 	
 	protected function showContent() {
 		echo '<br><form method="post">
-		<div> //later styling
+		<div class="login">
 		<label for="user">Enter username:</label>
 		<input type="text" id="user" name="register_user" value="' . $this->model->user . '"> <!--ID is used for javascript and css styling. name is used for form submission -->
 		<span class= "error">' . $this->model->userEr . '</span>

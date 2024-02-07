@@ -7,7 +7,6 @@ class Crud {
     private $user = "root";
     private $pwd = "";
     private $dbName = "shops";
-
     protected $pdo;
 
     public function __construct() {

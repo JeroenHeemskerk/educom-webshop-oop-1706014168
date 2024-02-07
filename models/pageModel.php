@@ -1,7 +1,5 @@
 <?php
 
-//require_once "..views/pageController.php";
-include_once "datalayer.php";
 require_once "SessionManager.php";
 
 class PageModel {
@@ -11,13 +9,11 @@ class PageModel {
 	public $errors = array();
 	public $genericErr = "";
 	protected $sessionManager;
-	protected $connection;
 	
 	public function __construct($copy) {
 		if (empty($copy)) {
 			//First instance pagemodel
 			$this->sessionManager = new SessionManager();
-			$this->connection = connect_to_database();
 		} else {
 			//Called from constructor of extender class
 			$this->page = $copy->page;
@@ -25,7 +21,6 @@ class PageModel {
 			$this->menu = $copy->menu;
 			$this->genericErr = $copy->genericErr;
 			$this->sessionManager = $copy->sessionManager;
-			$this->connection = $copy->connection;
 		}
 	}
 	
