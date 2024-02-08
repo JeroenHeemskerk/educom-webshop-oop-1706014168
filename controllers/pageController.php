@@ -11,7 +11,7 @@ class pageController { //assumption: are not in the hierarchy of inheritance, so
 	
 	public function __construct(ModelFactory $modelFactory, CrudFactory $crudFactory) {
 		$this->modelFactory = $modelFactory;
-		$this->model = $this->modelFactory->createModel(null, 'PageModel');
+		$this->model = $this->modelFactory->createModel('PageModel');
 	}
 	
 	public function handleRequest() {
@@ -36,7 +36,7 @@ class pageController { //assumption: are not in the hierarchy of inheritance, so
 	private function processRequest() {
 		switch($this->model->page) {
 			case "login":
-			    $this->model = $this->modelFactory->createModel($this->model, 'UserModel');
+			    $this->model = $this->modelFactory->createModel('UserModel');
 				$this->model->validateLogin();
 				if($this->model->valid) {
 					$this->model->doLoginUser();
@@ -45,12 +45,12 @@ class pageController { //assumption: are not in the hierarchy of inheritance, so
 				}
 				break;
 			case "logout":
-				$this->model = $this->modelFactory->createModel($this->model, 'UserModel');
+				$this->model = $this->modelFactory->createModel('UserModel');
 				$this->handleLogout();
 				$this->model->setPage("home");
 				break;
 			case "register":
-				$this->model = $this->modelFactory->createModel($this->model, 'UserModel');
+				$this->model = $this->modelFactory->createModel('UserModel');
 				$this->model->validateRegistration();
 				if($this->model->valid) {
 					$this->model->saveUser();
@@ -58,7 +58,7 @@ class pageController { //assumption: are not in the hierarchy of inheritance, so
 				}
 				break;
 			case "contact":
-				$this->model = $this->modelFactory->createModel($this->model, 'UserModel');
+				$this->model = $this->modelFactory->createModel('UserModel');
 				$this->model->validateMessage(); //unnecessary
 					if($this->model->valid) {
 						//$this->model->saveMessage(); //non-existent and unnecessary. Unless it will still be created
@@ -73,12 +73,12 @@ class pageController { //assumption: are not in the hierarchy of inheritance, so
 						$amount = $_POST['amount'][$itemId];
 						$this->handleAddToCart($itemId, $amount);
 					}
-				$this->model = $this->modelFactory->createModel($this->model, 'ShopModel');
+				$this->model = $this->modelFactory->createModel('ShopModel');
 				$this->model->prepareWebshopData();
 				$this->model->prepareOrderData();
 				break;
 			case "mycart":
-				$this->model = $this->modelFactory->createModel($this->model, 'ShopModel');
+				$this->model = $this->modelFactory->createModel('ShopModel');
 				$this->model->prepareWebshopData();
 
 					if (isset($_POST['placeOrder'])) {
@@ -89,7 +89,7 @@ class pageController { //assumption: are not in the hierarchy of inheritance, so
 					}
 				break;
 			case "orderhistory":
-				$this->model = $this->modelFactory->createModel($this->model, 'ShopModel');
+				$this->model = $this->modelFactory->createModel('ShopModel');
 				$this->model->prepareOrderData();
 				break;
 		}
@@ -97,14 +97,14 @@ class pageController { //assumption: are not in the hierarchy of inheritance, so
 
 	private function handleAddToCart($itemId, $amount) {
 		$userId = $_SESSION['user_id'];
-		$this->model = $this->modelFactory->createModel($this->model, 'ShopModel');
+		$this->model = $this->modelFactory->createModel('ShopModel');
 		$itemDetails = $this->model->cartSpecificItemDetails($itemId);
 		$this->model->addToCart($_SESSION['user_id'], $itemId, $amount, $itemDetails); //Implement addToCart method in ShopModel
 	}
 
 	private function handlePlaceOrder() {
 		$userId = $_SESSION['user_id'];
-		$this->model = $this->modelFactory->createModel($this->model, 'ShopModel');
+		$this->model = $this->modelFactory->createModel('ShopModel');
 		$this->model->placeOrder($_SESSION['user_id'], $_SESSION['user']); // Implement placeOrder method in ShopModel
 	}
 

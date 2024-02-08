@@ -14,7 +14,7 @@ class ModelFactory {
         $this->crudFactory = $crudFactory;
     }
 
-    public function createModel($model, $type) {
+    public function createModel($type) {
         switch ($type) {
             case 'UserModel':
                 //needs to have second parameter to call constructor of pagemodel(?)
