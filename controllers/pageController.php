@@ -109,16 +109,14 @@ class pageController { //assumption: are not in the hierarchy of inheritance, so
 	}
 
 	private function handleClearCart() {
-			$this->sessionManager->clearCart();
+		$this->sessionManager->clearCart();
 	}
 
 	private function handleLogout() {
-			$this->sessionManager->logoutUser();
+		$this->sessionManager->logoutUser();
 	}
 	
 	//to presentation layer
-
-	
 	
 	private function showResponse() {
 		$this->model->createMenu();

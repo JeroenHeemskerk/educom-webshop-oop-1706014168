@@ -34,14 +34,7 @@ class SessionManager {
     }
 
     public function clearCart() {
-        echo "Clear Cart function called.";
-		if (isset($_SESSION['cart'])) {
-			//Clear the cart session
-			unset($_SESSION['cart']);
-			echo "Cart cleared successfully!";
-		} else {
-			echo "Your cart is already empty.";
-		}
+		unset($_SESSION['cart']);
     }
 	
 }
