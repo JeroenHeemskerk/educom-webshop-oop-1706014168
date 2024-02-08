@@ -32,7 +32,6 @@ class PageModel {
 		} else {
 			$this->setPage($this->getUrlVar("page","home"));
 		}
-		$this->createMenu();
 	}
 	
 	public function setPage($newPage) { //it only seems to work when public

@@ -7,13 +7,11 @@ require_once "./models/CrudFactory.php";
 class pageController { //assumption: are not in the hierarchy of inheritance, so all functions public
 	private $modelFactory; //to store modelFactory instance
 	private $model;
-	private $crudFactory;
 	private $sessionManager; //why does it also work without a sessionmanager property defined
 	
 	public function __construct(ModelFactory $modelFactory, CrudFactory $crudFactory) {
 		$this->modelFactory = $modelFactory;
 		$this->model = $this->modelFactory->createModel(null, 'PageModel');
-		$this->crudFactory = $crudFactory;
 	}
 	
 	public function handleRequest() {

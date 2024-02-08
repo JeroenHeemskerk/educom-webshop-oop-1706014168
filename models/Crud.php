@@ -19,7 +19,9 @@ class Crud {
             $dsn = 'mysql:host=' . $this->host . ';dbname=' . $this->dbName;
             $this->pdo = new PDO($dsn, $this->user, $this->pwd);
             $this->pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC); //fetches associative array
+
             return $this->pdo;
+            
         } catch (PDOException $e) {
             echo "Error: " . $e->getMessage();
         }
@@ -29,7 +31,9 @@ class Crud {
         try {
             $query = "SELECT $data FROM $table";
             $stmt = $this->pdo->query($query);
+
             return $stmt->fetchAll(); //Fetching all rows
+
         } catch (PDOException $e) {
            echo "Error: " . $e->getMessage();
            return false;
@@ -91,6 +95,7 @@ class Crud {
             $stmt->execute($params);
             //how many rows affected:
             return $stmt->rowCount();
+
         } catch(PDOException $e) {
             echo "Error: " . $e->getMessage();
             return false;
@@ -101,7 +106,9 @@ class Crud {
         try {
             $stmt = $this->pdo->prepare($sql);
             $stmt->execute($params);
+
             return $stmt->rowCount();
+
         } catch(PDOException $e) {
             echo "Error " . $e->getmessage();
             return false;
