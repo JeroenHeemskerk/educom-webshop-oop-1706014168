@@ -18,6 +18,9 @@ classDiagram
     FormsDoc <|-- OrderhistoryDoc
 	FormsDoc <|-- ShoppingCartDoc
 
+    PageModel <|-- UserModel
+    PageModel <|-- ShopModel
+
     class HtmlDoc{
        +show()
        -showHtmlStart()
