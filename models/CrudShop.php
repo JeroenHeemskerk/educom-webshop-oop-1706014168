@@ -13,9 +13,9 @@ class ShopCrud {
     }
 
     public function retrieveAllItems() {
-        $data = "*";
-        $sql = "SELECT $data FROM $this->table";
-        $items = $this->crud->runSelectQuery($data, $this->table);
+        $sql = "SELECT * FROM $this->table";
+        $params = []; //none needed
+        $items = $this->crud->readMultipleRows($sql, $params);
         return $items;
     }
 
