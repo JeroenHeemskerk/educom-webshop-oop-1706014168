@@ -19,6 +19,7 @@ class ShopModel extends pageModel {
         //Call function to get items from database
         $items = $this->shopCrud->retrieveAllItems();
         $this->items = $items;
+        return $this->items;
     }
 
     public function prepareOrderData() {

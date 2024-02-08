@@ -118,11 +118,6 @@ class UserModel extends pageModel {
 
 	public function doLoginUser() {
 		$_SESSION['user'] = $this->user;
-
-		/* Id prefer to do something like this: 
-		$sessionManager = $this->getSessionManager();
-		$sessionManager->setUser($this->user);
-		*/
 	}
 
 	public function getUserId() {

@@ -6,10 +6,6 @@ class SessionManager {
         session_start();
     }
 
-    public function setUser() {
-        $_SESSION['user'] = $this->user;
-    }
-
     public function getUser(){
         return $_SESSION['user'] ?? null;
     }

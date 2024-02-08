@@ -13,6 +13,7 @@ class ShopCrud {
     }
 
     public function retrieveAllItems() {
+        $items = [];
         $sql = "SELECT * FROM $this->table";
         $params = []; //none needed
         $items = $this->crud->readMultipleRows($sql, $params);
