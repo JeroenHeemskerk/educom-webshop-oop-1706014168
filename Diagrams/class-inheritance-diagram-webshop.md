@@ -8,20 +8,15 @@ classDiagram
     HtmlDoc <|-- BasicDoc
 
     BasicDoc <|-- HomeDoc
-    BasicDoc <|-- AboutDoc
-    BasicDoc <|-- FormDoc
-	BasicDoc <|-- ProductDoc
-	
-	DatabaseClass <|-- FormDoc
-	DatabaseClass <|-- ProductDoc
+    BasicDoc <|-- FormsDoc
 
-    FormDoc <|-- ContactDoc
-    FormDoc <|-- LoginForm
-	FormDoc <|-- RegistrationForm
+    FormsDoc <|-- ContactDoc
+    FormsDoc <|-- LoginForm
+	FormsDoc <|-- RegistrationForm
 	
-	ProductDoc <|-- WebshopDoc
-	ProductDoc <|-- DetailsDoc
-	ProductDoc <|-- ShoppingCartDoc
+	FormsDoc <|-- WebshopDoc
+    FormsDoc <|-- OrderhistoryDoc
+	FormsDoc <|-- ShoppingCartDoc
 
     class HtmlDoc{
        +show()
@@ -35,11 +30,11 @@ classDiagram
        -showHtmlEnd()
     }
     class BasicDoc{
-        #data 
-        +__construct(mydata)
-        #showHeaderContent()
+        #model 
+        +__construct($model)
         -showTitle()
         -showCssLinks()
+        #showHeadContent()
         #showBodyContent()
         #showHeader()
         -showMenu()
@@ -47,51 +42,155 @@ classDiagram
         -showFooter()
     }
     class HomeDoc{
-        #showHeader()
+        +__construct($model)
+        #showPageHeader()
         #showContent()
-    }
-    class AboutDoc{
-        #showHeader()
-        #showContent()
-    }
-	class DatabaseClass{
-		#table
-		#data
-		#mysqli
-		-__construct($mysqli)
-		#run_select_query($data, $table)
-		#run_insert_query($data, $table)
-		#create_instance($row)
-	}
-    class FormDoc{
+        +showWelcomeMessage()
+    }	
+    class FormsDoc{
         <<abstract>>
     }
-	class ProductDoc{
-		<<abstract>>
-	}
     class ContactDoc{
-        #showHeader()
+        #showPageHeader()
         #showContent()
     }
     class LoginForm{
-        #showHeader()
+        #showPageHeader()
         #showContent()
     }
 	class RegistrationForm{
-		#showHeader()
+		#showPageHeader()
 		#showContent()
 	}
 	class WebshopDoc{
-		
-	
+        #showPageHeader()
+        #showContent()
+        -showProducts($items)
 	}
-	class DetailsDoc{
-	
-	
-	}
+    class OrderhistoryDoc{
+        #showPageHeader()
+        #showContent()
+        #shopOrders()
+
+    }
 	class ShoppingCartDoc{
-	
-	
+        #showPageHeader()
+        #showContent()
+        #showCart()
 	}
+
+    %%no inheritance happening:
+
+    class Crud{
+		-host
+		-user
+		-pwd
+        -dbName
+        #pdo
+		+__construct()
+		#connect()
+		+createRow($sql, $params)
+		+readOneRow($sql, $params)
+        +readMultipleRows($sql, $params)
+        +updateRow($sql, $params)
+        +deleteRow($sql, $params)
+	}
+    class CrudShop{
+        -crud
+        -table
+        +__construct(Crud $crud, $table = "items")
+        +retrieveAllItems()
+        +retrieveSpecificItem($column, $itemId)
+        +insertIntoOrdersTable($userId, $itemId)
+        +retrieveOrderHistory($userId)
+    }
+    class CrudUser{
+        -crud
+        -table
+        +__construct(Crud $crud, $table = "username")
+        +createUser($username, $password)
+        +readUserByUsername($username)
+        +retrieveUserData($column, $username)
+        +getUserId($username)
+        +updateUser($userId, $newUsername)
+        +deleteUser($userId)
+    }
+    class CrudFactory{
+        -crud
+        +__construct(Crud $crud)
+        +createCrud($name)
+    }
+    class ModelFactory{
+        -crudFactory
+        -model
+        +__construct(CrudFactory $crudFactory)
+        +createModel($type)
+    }
+
+    class SessionManager {
+        +__construct
+        +setUser()
+        +getUser()
+        +logoutUser()
+        +setCart($cartData)
+        +getCart()
+        +addToCart($item)
+        +clearCart()
+    }
+
+    class PageModel {
+        +page
+        #isPost
+        +menu
+        +errors
+        +genericErr
+        #sessionManager
+        +__construct($copy)
+        +getRequestedPage()
+        +setPage($newPage)
+        +getUrlVar($key, $default = "")
+        +getPostVar($key, $default = "")
+        +createMenu()
+        +getSessionManager()
+    }
+    class ShopModel {
+        +items
+        +cart
+        +orders
+        -shopCrud
+        +__construct($pageModel, ShopCrud $shopCrud)
+        +prepareWebshopData()
+        +prepareOrderData()
+        +cartSpecificItemDetails()
+        +addToCart($userId, $itemId, $amount, $itemDetails)
+        +setItemDetails($itemDetails)
+        +placeOrder($userId, $user)
+    }
+    class UserModel {
+        +name
+        +nameEr
+        +user
+        +userEr
+        +password
+        +password_2
+        +passwordEr
+        +password2Er
+        +email
+        +emailEr
+        +valid
+        +comment
+        +commentEr
+        -userCrud
+        +__construct($pageModel, UserCrud $userCrud)
+        +validateLogin()
+        +validateRegistration()
+        +validateMessage()
+        +authenticateUser($user, $password)
+        +doLoginUser()
+        +getUserId()
+        +hashPassword()
+        +saveUser()
+    }
+
 
 ```

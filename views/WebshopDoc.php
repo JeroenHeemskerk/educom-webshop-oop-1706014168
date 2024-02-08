@@ -13,12 +13,12 @@ class WebshopDoc extends FormsDoc {
 	}
 
 	protected function showContent() {
-		$this->show_products($this->model->items);
+		$this->showProducts($this->model->items);
 		//$this->show_cart();
 		//$this->show_orders($this->model->orders);
 	}
 
-	private function show_products($items) { 
+	private function showProducts($items) { 
 		echo '<form method="post">';
 		echo '<table>';
 		echo '<tr>

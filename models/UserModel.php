@@ -131,13 +131,13 @@ class UserModel extends pageModel {
 		return $userId;
 	}
 
-	public function hash_password() {
+	public function hashPassword() {
 		$hashedPassword = password_hash($this->password, PASSWORD_DEFAULT);
 		return $hashedPassword;
 	}
 
 	public function saveUser() {
-		$hashedPassword = $this->hash_password();
+		$hashedPassword = $this->hashPassword();
 		//add_user_database_pdo($this->connection, $this->user, $hashedPassword);
 		$this->userCrud->createUser($this->user, $hashedPassword);
 	}

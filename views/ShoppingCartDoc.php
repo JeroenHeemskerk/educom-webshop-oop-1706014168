@@ -10,10 +10,10 @@ class ShoppingCartDoc extends FormsDoc {
 	}
 
 	protected function showContent() {
-		$this->show_cart();
+		$this->showCart();
 	}
 
-	private function show_cart() {
+	private function showCart() {
 		if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
 			echo '<form method="post">';
 			echo '<h3>Shopping Cart:</h3>';

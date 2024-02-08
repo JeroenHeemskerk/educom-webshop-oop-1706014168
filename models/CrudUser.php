@@ -52,7 +52,6 @@ class UserCrud {
         $params = [$userId];
         return $this->crud->deleteRow($sql, $params);
     }
-
 }
 
 ?>

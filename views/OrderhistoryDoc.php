@@ -9,10 +9,10 @@ class OrderhistoryDoc extends FormsDoc {
 	}
 
     protected function showContent() {
-		$this->show_orders($this->model->orders);
+		$this->showOrders($this->model->orders);
 	}
 
-    private function show_orders($orders) {
+    private function showOrders($orders) {
 		if (!empty($orders)) {
 			echo '<form method="post">';
 			echo '<table>';
