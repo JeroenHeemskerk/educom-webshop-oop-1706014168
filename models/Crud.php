@@ -26,20 +26,6 @@ class Crud {
             echo "Error: " . $e->getMessage();
         }
     }
-
-    public function runSelectQuery($data, $table) {
-        try {
-            $query = "SELECT $data FROM $table";
-            $stmt = $this->pdo->query($query);
-
-            return $stmt->fetchAll(); //Fetching all rows
-
-        } catch (PDOException $e) {
-           echo "Error: " . $e->getMessage();
-           return false;
-        }
-    }
-
     public function createRow($sql, $params) {
         //Prepare statement
         try {
