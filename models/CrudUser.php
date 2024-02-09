@@ -6,7 +6,7 @@ class UserCrud {
     private $crud; //property storing instance of generic crud class
     private $table;
 
-    public function __construct(Crud $crud, $table = "username") { //use dependency injection
+    public function __construct(Crud $crud, $table = "users") { //use dependency injection
         $this->crud = $crud;
         $this->table = $table;
     }

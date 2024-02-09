@@ -6,19 +6,20 @@ class ShopModel extends pageModel {
     public $items = []; //empty array of items
     public $cart = []; //empty array of cart items
     public $orders = [];
-
+    public $itemDetails;
     private $shopCrud;
 
     public function __construct($pageModel, ShopCrud $shopCrud) {
 		PARENT:: __construct($pageModel);
         $this->shopCrud = $shopCrud;
+        $this->cart = array();
 
 	}
 
     public function prepareWebshopData() {
         //Call function to get items from database
         $items = $this->shopCrud->retrieveAllItems();
-        return $items;
+        $this->items = $items;
     }
 
     public function prepareOrderData() {
@@ -43,11 +44,8 @@ class ShopModel extends pageModel {
     }
 
     public function addToCart($userId, $itemId, $amount, $itemDetails) {
-        if (!isset($_SESSION['cart'])) {
-            $_SESSION['cart'] = [];
-        }
         //Add item to the cart array
-        $_SESSION['cart'][] = array(
+        $this->cart = array(
             'userId' => $userId, 
             'itemId' => $itemId, 
             'amount' => $amount, 

@@ -7,7 +7,6 @@
 	require_once "FormsDoc.php";
 
 class WebshopDoc extends FormsDoc {
-	
 	protected function showPageHeader() {
 		echo '<h1>Webshop all details here</h1>';
 	}

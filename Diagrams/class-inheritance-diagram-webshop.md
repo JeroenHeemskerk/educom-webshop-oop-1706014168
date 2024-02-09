@@ -110,7 +110,7 @@ classDiagram
     class CrudUser{
         -crud
         -table
-        +__construct(Crud $crud, $table = "username")
+        +__construct(Crud $crud, $table = "users")
         +createUser($username, $password)
         +readUserByUsername($username)
         +retrieveUserData($column, $username)

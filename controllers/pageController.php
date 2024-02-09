@@ -74,7 +74,7 @@ class pageController { //assumption: are not in the hierarchy of inheritance, so
 						$this->handleAddToCart($itemId, $amount);
 					}
 				$this->model = $this->modelFactory->createModel('ShopModel');
-				$this->model->prepareWebshopData();
+				$items = $this->model->prepareWebshopData();
 				$this->model->prepareOrderData();
 				break;
 			case "mycart":
@@ -100,6 +100,7 @@ class pageController { //assumption: are not in the hierarchy of inheritance, so
 		$this->model = $this->modelFactory->createModel('ShopModel');
 		$itemDetails = $this->model->cartSpecificItemDetails($itemId);
 		$this->model->addToCart($_SESSION['user_id'], $itemId, $amount, $itemDetails); //Implement addToCart method in ShopModel
+		$this->sessionManager->addToSessionCart($this->model->cart);
 	}
 
 	private function handlePlaceOrder() {
