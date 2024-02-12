@@ -75,7 +75,8 @@ class pageController { //assumption: are not in the hierarchy of inheritance, so
 					}
 				$this->model = $this->modelFactory->createModel('ShopModel');
 				$items = $this->model->prepareWebshopData();
-				$this->model->prepareOrderData();
+				$userId = $this->sessionManager->getUserId();
+				$this->model->prepareOrderData($userId);
 				break;
 			case "mycart":
 				$this->model = $this->modelFactory->createModel('ShopModel');
@@ -90,7 +91,8 @@ class pageController { //assumption: are not in the hierarchy of inheritance, so
 				break;
 			case "orderhistory":
 				$this->model = $this->modelFactory->createModel('ShopModel');
-				$this->model->prepareOrderData();
+				$userId = $this->sessionManager->getUserId();
+				$this->model->prepareOrderData($userId);
 				break;
 		}
 	}

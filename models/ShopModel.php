@@ -22,9 +22,7 @@ class ShopModel extends pageModel {
         $this->items = $items;
     }
 
-    public function prepareOrderData() {
-        if(isset($_SESSION['user'])) {
-            $userId = $_SESSION['user_id'];
+    public function prepareOrderData($userId) {
             $orders = $this->shopCrud->retrieveOrderHistory($userId);
             $this->orders = $orders;
 
@@ -33,10 +31,7 @@ class ShopModel extends pageModel {
             } else {
                 return $orders;
             }
-        } else {
-            echo "you're not logged in!";
-        }
-    }
+    } 
 
     public function cartSpecificItemDetails($itemId) {
         $itemDetails = $this->shopCrud->retrieveSpecificItem("item_name", $itemId);
@@ -49,7 +44,7 @@ class ShopModel extends pageModel {
             'userId' => $userId, 
             'itemId' => $itemId, 
             'amount' => $amount, 
-            'item_name' => $itemDetails //before it had to implode
+            'item_name' => $itemDetails 
         ); 
     }
 

@@ -10,6 +10,10 @@ class SessionManager {
         return $_SESSION['user'] ?? null;
     }
 
+    public function getUserId() {
+        return $_SESSION['user_id'] ?? null;
+    }
+
     public function logoutUser() {
         echo "logging out user";
 		unset($_SESSION['user']);
