@@ -137,6 +137,3 @@ class UserModel extends pageModel {
 		$this->userCrud->createUser($this->user, $hashedPassword);
 	}
 }
-
-
-?>

@@ -1,8 +1,7 @@
 <?php
 
 interface IShopCrud {
-    function getAllProducts();
-    //.
+    public function retrieveAllItems();
 }
 
 

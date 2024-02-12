@@ -34,7 +34,7 @@ class WebshopDoc extends FormsDoc {
 			echo '<td>' . $item['id'] . '</td>';
 			echo '<td><img src="' . $item['image_url'] . '" alt="Item Image" style="width:50px;height:50px;"></td>';
 			echo '<td>' . $item['item_name'] . '</td>';
-			echo '<td>' . $item['price'] . '</td>';
+			echo '<td> € ' . $item['price'] . '</td>';
 			echo '<td>';
 			echo '<input type="hidden" id="page" name="page" value="Shop">';
 			echo '<input type="number" name="amount[' . $item['id'] . ']" min="1" value="1" required>';

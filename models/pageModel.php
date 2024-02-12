@@ -64,5 +64,3 @@ class PageModel {
 }
 
 //this class interacts with $_SESSIONS etc..
-
-?>
