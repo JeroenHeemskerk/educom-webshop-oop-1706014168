@@ -12,7 +12,6 @@ include_once "ICrud.php";
 
 class Test_ShopModel extends TestCase {
   private $crud;
-  
   public function testprepareWebshopData() {
       // Set up expected return value for retrieveAllItems method
       $expectedItems = [
@@ -20,17 +19,18 @@ class Test_ShopModel extends TestCase {
         ['id' => 2, 'name' => 'Item 2', 'price' => 20]
         ];
       
+      $mockPageModel = $this->createMock(PageModel::class);
       $mockShopCrud = $this->createMock(ShopCrud::class);
       $mockShopCrud->method('retrieveAllItems')->willReturn($expectedItems);
 
-      $pageModel = new PageModel(null);
-      $shopModel = new ShopModel($pageModel, $mockShopCrud);
+      $shopModel = new ShopModel($mockPageModel, $mockShopCrud);
 
       $shopModel->prepareWebshopData();
 
         // Assert that the items property has been correctly populated
         $this->assertEquals($expectedItems, $shopModel->items);
-        }
+  }
+        
 
     public function testprepareOrderData() {
       $expectedOrders = [
@@ -40,12 +40,14 @@ class Test_ShopModel extends TestCase {
 
       $userId = 1;
 
+      $mockPageModel = $this->createMock(PageModel::class);
+
       //Create shopmodel object with mock shopCrud object
       $mockShopCrud = $this->createMock(ShopCrud:: class);
       $mockShopCrud->method('retrieveOrderHistory')->willReturn($expectedOrders);
 
-      $pageModel = new PageModel(null);
-      $shopModel = new ShopModel($pageModel, $mockShopCrud);
+      $shopModel = new ShopModel($mockPageModel, $mockShopCrud);
+
       ob_start(); //capture any echo statement
       $shopModel->prepareOrderData($userId);
       $output = ob_get_clean(); //get output
@@ -54,14 +56,6 @@ class Test_ShopModel extends TestCase {
       $this->assertEquals($expectedOrders, $shopModel->orders);
       $this->assertEquals("", $output); //there shouldnt be an echo
     }
-
-
-
-
-
-
-      
-
 }
 
 ?>
