@@ -55,7 +55,7 @@ class ShopModel extends pageModel {
     public function placeOrder($userId, $user) {
         $cart = $this->sessionManager->getCart();
         if (!empty($cart)) {
-            foreach ($_SESSION['cart'] as $cartItem) {
+            foreach ($cart as $cartItem) {
                 $itemId = $cartItem['itemId'];
                 $amount = $cartItem['amount'];
                 $userId = $_SESSION['user_id'];
