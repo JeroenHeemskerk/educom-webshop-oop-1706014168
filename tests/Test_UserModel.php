@@ -88,10 +88,28 @@ class Test_UserModel extends TestCase {
 
     public function testAuthenticateUser($user, $password) {
         //todo
+        /*
+            1. the $userdata first holds the hashed password from the database
+
+        	2. if it is not null, $userData becomes $hashedPassword. if it is null the username doesnt exist
+
+            3. if the password is verified to be correct ($this->password == $hashedPassword)
+                - credentials will be said to be correct
+
+    else:       - credentials are incorrect
+        */
     }
 
     public function testDoLoginUser() {
         //it is one line of code, is it testable?
+        /*
+            here the $_SESSION['user'] is set, which is=the wrong place for it.
+            It should be done in Sessionmanager.
+        */
+    }
+
+    public function getUserId() {
+        //The userId is retrieved from the database with the session['user']. might as well use $this->user
     }
 
     public function testHashPassword() {

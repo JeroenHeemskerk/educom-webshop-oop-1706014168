@@ -124,7 +124,7 @@ class UserModel extends pageModel {
 
 	public function getUserId() {
 		//$userId = get_username_id($this->connection, $_SESSION['user']);
-		$userId = $this->userCrud->retrieveUserData("id", $_SESSION['user']);
+		$userId = $this->userCrud->retrieveUserData("id", $this->user);
 		return $userId;
 	}
 
