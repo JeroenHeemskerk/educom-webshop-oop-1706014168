@@ -1,7 +1,5 @@
 <?php
 
-interface IShopCrud {
+interface IUserCrud {
     public function retrieveAllItems();
 }
-
-

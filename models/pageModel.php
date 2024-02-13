@@ -4,7 +4,7 @@ require_once "SessionManager.php";
 
 class PageModel {
 	public $page;
-	protected $isPost = false;
+	public $isPost = false;
 	public $menu;
 	public $errors = array();
 	public $genericErr = "";

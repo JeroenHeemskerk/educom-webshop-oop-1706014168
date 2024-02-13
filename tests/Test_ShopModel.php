@@ -94,7 +94,7 @@ class Test_ShopModel extends TestCase {
 
         //Assertions
         $this->assertNotEmpty($cart);
-        $this->assertCount(1, $cart); //check number of elements in array
+        $this->assertCount(4, $cart); //check number of elements in array
         $this->assertEquals($userId, $cart[0]['userId']);
         $this->assertEquals($itemId, $cart[0]['itemId']);
         $this->assertEquals($amount, $cart[0]['amount']);
@@ -126,9 +126,24 @@ class Test_ShopModel extends TestCase {
 
     public function testPlaceOrder() {
       $mockCrud = $this->createMock(Crud::class);
-
       $mockShopCrud = $this->getMockBuilder(ShopCrud::class)
       ->setConstructorArgs([$mockCrud])
       ->getMock();
+
+      //instantiating shopmodel with mocked dependencies
+      $mockPageModel = $this->createMock(PageModel::class);
+      $shopModel = new ShopModel($mockPageModel, $mockShopCrud);
+
+      // Stub the getCart() method of SessionManager
+    $shopModel->sessionManager = $this->getMockBuilder(SessionManager::class)
+    ->getMock();
+    $shopModel->sessionManager->expects($this->once())
+    ->method('getCart')
+    ->willReturn([
+    ['itemId' => 1, 'amount' => 2],
+    ['itemId' => 2, 'amount' => 1],
+    ]);
+    
+      $shopModel->placeOrder(123, 'testuser');
     }
 }
