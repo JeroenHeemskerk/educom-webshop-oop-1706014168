@@ -17,6 +17,8 @@ class UserModel extends pageModel {
 	public $comment = "";
 	public $commentEr = "";
 
+	public $userData = "";
+
 	private $userCrud; //property to store instance of UserCrud
 	
 	public function __construct($pageModel, UserCrud $userCrud) {
@@ -37,8 +39,8 @@ class UserModel extends pageModel {
 				$this->passwordEr = "Password is verplicht";
 			}
 			if (empty($this->userEr) && empty($this->passwordEr)) {
-				$userData = $this->authenticateUser($this->user, $this->password); // fixed variable name
-				if ($userData == null || $userData == "password incorrect") { // fixed variable name
+				$this->userData = $this->authenticateUser($this->user, $this->password); // fixed variable name
+				if ($this->userData == null || $this->userData == "password incorrect") { // fixed variable name
 					$this->userEr = "Gebruiker onbekend of verkeerd password";
 				} else {
 					$this->valid = true;
