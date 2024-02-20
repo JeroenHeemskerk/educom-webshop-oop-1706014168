@@ -98,25 +98,78 @@ class Test_UserModel extends TestCase {
 
     else:       - credentials are incorrect
         */
+
+        //Creating valid credentials to test
+        $user = 'valid_user';
+        $password = 'valid_password';
+
+        //Mocking UserCrud class behavior to return hashed password
+
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+        $this->mockUserCrud->expects($this->once())
+            ->method('retrieveUserData')
+            ->with('password_hashed', $user)
+            ->willReturn($hashedPassword)
+
+        $result = $this->user->authenticateUser($user, $password);
+        $this->assertEquals('credentials correct', $result)
+
+        //Case 2: invalid password
+
+        $password = 'invalid_passwordd';
+
+        $result = $this->user->authenticateUser($user, $password);
+        $this->assertEquals('password incorrect', $result);
+
+        //Case 3: User not existent
+        $user = 'non_existent_user';
+
+        //Mocking usercrud class to return null (user doenst exist)
+        $this->mockUserCrud->expects($this->once())
+            ->method('retrieveUserData')
+            ->with('password_hashed', $user)
+            ->willReturn(null);
+        
+        $result = $this->user->authenticateUser($user, $password);
+        $this->assertNull($result);
+
     }
 
     public function testDoLoginUser() {
-        //it is one line of code, is it testable?
-        /*
-            here the $_SESSION['user'] is set, which is=the wrong place for it.
-            It should be done in Sessionmanager.
-        */
-    }
-
-    public function getUserId() {
-        //The userId is retrieved from the database with the session['user']. might as well use $this->user
+        $this->user->user = 'test_user';
+        $this->user->doLoginUser();
+        $this->assertEquals($_SESSION['user'], $this->user->user);
     }
 
     public function testHashPassword() {
-        //it is one line of code, is that testable?
+        //set password
+        $password = 'test';
+
+        $hashedPassword = $this->user->hashPassword();
+
+        //verify hashedpassowrd is not empty
+
+        $this->assertNotEmpty($hashedPassword);
+
+        //verify hashedpassword = valid
+        $this->assertTrue(password_verify($password, $hashedPassword));
     }
 
     public function testsaveUser() {
-        //it is one line of code, is that testable?
+        //mock usercrud
+
+        $this->user->user = 'test_user';
+        $this->user->password = 'test_password';
+        $hashedPassword = password_hash ('test_password', PASSWORD_DEFAULT);
+        $this->mockUserCrud->expects($this->once())
+            ->method('createUser')
+            ->with('test_user', $hashedPassword);
+
+        //call saveUser method
+        $this->user->saveUser(); 
+
+        //needs assertions
+
+
     }
 }
